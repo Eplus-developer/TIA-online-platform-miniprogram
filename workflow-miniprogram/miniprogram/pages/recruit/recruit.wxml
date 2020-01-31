@@ -41,7 +41,18 @@
   </block>
 
   <view class='divider'></view>
-  <view class='tia-btn' catchtap='createRecruit'>
+  <view class="expanded-btn-upper" hidden="{{!createButtonExpand}}">
     发布招聘
   </view>
+  <navigator url="/pages/createCourse/createCourse">
+    <view class='expanded-btn-lower' hidden="{{!createButtonExpand}}">
+      发布课程
+    </view>
+  </navigator>
+  <view class='tia-new-btn' hidden="{{createButtonExpand}}" bindtap="expand">
+    +
+  </view>
+  <!-- <view class='tia-btn' catchtap='createRecruit'>
+    发布招聘
+  </view> -->
 </view>

@@ -24,7 +24,9 @@
     "pages/matchDetail/matchDetail",
     "pages/matchHistoryDetail/matchHistoryDetail",
     "pages/matchCutoffDetail/matchCutoffDetail",
-    "pages/createTeam/createTeam"
+    "pages/createTeam/createTeam",
+    "pages/myClass/myClass",
+    "pages/createCourse/createCourse"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -70,5 +72,5 @@
       "provider": "wx92c68dae5a8bb046"
     }
   },
-  "sitemapLocation": "sitemap62.json"
+  "sitemapLocation": "sitemap.json"
 }

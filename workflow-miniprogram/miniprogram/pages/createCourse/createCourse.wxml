@@ -1,0 +1,46 @@
+<!--miniprogram/pages/createCourse/createCourse.wxml-->
+<view class='page'>
+  <form bindsubmit="formSubmit">
+    <view class='form-info'>
+      <view class='form-title'>课 程 信 息</view>
+
+      <view class='form-item'>
+        <view class='item-title'>课程名称:</view>
+        <input name="coursename"></input>
+      </view>
+
+      <view>
+        <view class='item-title'>主讲人</view>
+        <input name='lecturer'></input>
+      </view>
+
+      <view>
+        <view class='item-title'>手机号码</view>
+        <input name='phone'></input>
+      </view>
+
+      <view>
+        <view class='item-title'>上课日期</view>
+        <picker mode='date' value='{{date}}' start='2019-12-21' end='2022-01-01' bindchange='dateChange'>
+          <view class='picker'>{{date}}</view>
+        </picker>
+      </view>
+
+      <view>
+        <view class='item-title'>上课时间</view>
+        <picker mode='time' value='{{time}}' bindchange='timeChange'>
+          <view class='picker'>{{time}}</view>
+        </picker>
+      </view>
+
+      <view class='form-item'>
+        <view class='item-title'>课程简介:</view>
+        <textarea name="description"></textarea>
+      </view>
+    </view>
+
+    <view class='tia-btn'>
+      <button form-type='submit'>提交修改</button>
+    </view>
+  </form>
+</view>

@@ -68,6 +68,62 @@
   font-weight: bold;
 }
 
+.tia-new-btn {
+  position: fixed;
+  width: 50rpx;
+  height: 50rpx;
+  left: 80%;
+  right: 10%;
+  bottom: 3%;
+  z-index: 1000;
+  padding: 15rpx;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  color: #4a69bd;
+  font-size: 40rpx;
+  text-align: center;
+  font-weight: bold;
+  line-height: 48rpx;
+}
+
+.expanded-btn-upper {
+  position: fixed;
+  width: 20%;
+  left: 70%;
+  right: 10%;
+  bottom: 20rpx;
+  z-index: 1000;
+  padding: 15rpx;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 5px;
+  color: #4a69bd;
+  font-size: 30rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
+.expanded-btn-lower {
+  position: fixed;
+  width: 20%;
+  left: 70%;
+  right: 10%;
+  bottom: 120rpx;
+  z-index: 1000;
+  padding: 15rpx;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 5px;
+  color: #4a69bd;
+  font-size: 30rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
 .placeholder {
   margin: 5px;
   /* padding: 0 10px; */

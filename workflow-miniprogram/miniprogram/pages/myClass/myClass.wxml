@@ -1,0 +1,87 @@
+<!--pages/myRecruit/myRecruit.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+
+        <!-- tab1 -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <view class='page' hidden="{{hasPostedClass != 0}}">
+            <view class='none'>
+              <image src='/image/meh.png' class='none-img'></image>
+              <view class='none-text'>你还没有发布过课程哦</view>
+              <navigator class='common-btn' url='/pages/recruit/recruit' open-type='switchTab'>去发布</navigator>
+            </view>
+          </view>
+
+          <view class="weui-tab__content" hidden="{{hasPostedClass == 0}}">
+            <block wx:for="{{applyList}}" wx:key="id">
+              <view class="box recruit-item" bindtap='toDetail' hover-class="navigator-hover" id="{{item.recruitId}}">
+                <view class="top-item">
+                  <view class='info'>
+                    <view catchtap='toOthersInfo' data-id='{{item.organizer.userId}}'>
+                      <image class="msgbox_in_img" id="userinfo" src='https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a3.jpg'></image>
+                    </view>
+                    <view>
+                      <view class="username">{{item.organizer.username}}</view>
+                    </view>
+                  </view>
+                  <view>
+                    <image src='{{item.followed == true ? "/image/focus.png" : "/image/unfocus.png"}}' data-id='{{item}}' catchtap='changeFocus' hover-class="none" class='img'></image>
+                    <image src='/image/delete.png' class='img' catchtap='cancelAppliedRecruit' data-recruit-id='{{item.recruitId}}'></image>
+                  </view>
+                </view>
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.recruitName}}</view>
+                <view class="weui-media-box__desc">
+                  {{item.activityName}}
+                </view>
+                <view class="weui-media-box__desc recruit-pos">
+                  {{item.recruitPosition}}
+                </view>
+                <view class='footer'>
+                  <view class='footer-text'>申请情况：{{item.recruitRegisteredNumber}}/{{item.recruitWillingNumber}}名</view>
+                  <image src='/image/more.png' class='more'></image>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+
+        <!-- tab2 -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <view class='page' hidden="{{hasReservedClass != 0}}">
+            <view class='none'>
+              <image src='/image/meh.png' class='none-img'></image>
+              <view class='none-text'>还没有人预约过你的课程哦</view>
+            </view>
+          </view>
+
+          <view class='page' hidden="{{hasReservedClass == 0}}">
+            <view wx:for="{{othersApplyList}}" wx:key="id">
+              <view class='focus-item'>
+                <navigator class='focus-img-out' url='/pages/othersInfo/othersInfo' hover-class='none'>
+                  <image src='/image/tia.png' class='focus-img'></image>
+                </navigator>
+                <view class='focus-text'>
+                  <view class='focus-name'>{{item.username}}</view>
+                  <view class='focus-desc'>{{item.userResume}}</view>
+                </view>
+                <view class='focus-btn' data-user-id='{{item.userId}}' data-recruit-id='{{item.recruitId}}' bindtap='acceptApply'>
+                  <view class="focus-btn-in">同意申请</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

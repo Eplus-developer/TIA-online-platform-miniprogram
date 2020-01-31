@@ -19,6 +19,7 @@ Page({
     time: util.formatDateTime(new Date()),
     offset: 0,
     recruitName: "",
+    createButtonExpand: false
   },
 
   /**
@@ -73,7 +74,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var that = this
+    that.setData({
+      createButtonExpand: false
+    })
   },
 
   /**
@@ -372,5 +376,13 @@ Page({
         console.log("fail");
       }
     })
+  },
+
+  expand: function() {
+    var that = this
+    that.setData({
+      createButtonExpand: !that.data.createButtonExpand
+    })
+    console.log(that.data.createButtonExpand)
   }
 })
