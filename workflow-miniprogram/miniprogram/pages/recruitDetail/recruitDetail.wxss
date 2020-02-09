@@ -60,7 +60,7 @@
 
 
 textarea{
-  border: 3rpx solid #777;
+  border: 2rpx dashed #7286bdab;
   padding: 10rpx;
   width: 95%;
   margin: 10rpx auto;
