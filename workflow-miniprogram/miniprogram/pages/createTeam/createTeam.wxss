@@ -32,7 +32,9 @@
 .form-item{
   width: 100%;
   display: flex;
+  font-size: 36rpx;
   flex-direction: row;
+  margin-top: 30rpx;
 }
 
 .item-title{
@@ -42,7 +44,8 @@
 
 input{
   height: 60rpx;
-  border-bottom: 5rpx solid #4a69bd;
+  display: block;
+  border-bottom: 2rpx dashed #7286bdab;
 }
 
 picker{
