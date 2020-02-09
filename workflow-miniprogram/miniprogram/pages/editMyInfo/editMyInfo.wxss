@@ -69,6 +69,12 @@
   border-radius: 20rpx;
 }
 
+.form-title {
+  text-align: center;
+  font-size: 60rpx;
+  color: #4a69bd;
+}
+
 .item-title{
   font-size: 36rpx;
   margin: 20rpx 0;

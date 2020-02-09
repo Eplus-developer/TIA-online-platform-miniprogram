@@ -1,5 +1,4 @@
 // pages/myRecruit/myRecruit.js
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
 
   /**
@@ -13,7 +12,8 @@ Page({
     hasOthersApply: 0,
     hasApply: 0,
     othersApplyList: [],
-    applyList:[]
+    applyList:[],
+    sliderWidth: 96,
   },
 
   /**
@@ -23,8 +23,10 @@ Page({
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
+        var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
         that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderWidth: sliderWidth_new,
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth_new) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
         });
       }
