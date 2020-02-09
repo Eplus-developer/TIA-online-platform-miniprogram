@@ -50,7 +50,7 @@
   background-color: white;
   transition: 0.3s;
   border-radius: 20rpx;
-  color: #4a69bd;
+  color: rgb(255, 0, 0);
   font-size: 50rpx;
   font-weight: bold;
   text-align: center;
@@ -59,7 +59,7 @@
 .form-info {
   background-color: white;
   width: 85%;
-  padding: 0rpx 20rpx;
+  padding: 40rpx 30rpx;
   margin: 80rpx auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 20rpx;
@@ -75,35 +75,43 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  border-bottom: 2rpx dashed #7286bdab;
 }
 
 .form-item:last-child{
   width: 100%;
   display: flex;
   flex-direction: column;
-}
+  border-bottom: none;
+  }
 
 .item-title{
-  margin: 10rpx 0;
+  font-size: 36rpx;
+  margin: 20rpx 0;
   width: 30%;
 }
 
 input{
-  height: 60rpx;
-  border-bottom: 5rpx solid #4a69bd;
+  font-size: 36rpx;
+  display: block;
+  margin: 20rpx 0;
 }
 
 picker{
-  height: 60rpx;
-  border-bottom: 5rpx solid #4a69bd;
+  /* height: 60rpx; */
+  font-size: 36rpx;
+  border-bottom: 0rpx solid #fff;
+  display: block;
+  margin: 20rpx 0;
 }
 
 textarea{
-  border: 5rpx solid #4a69bd;
+  border: 2rpx dashed #7286bdab;
   padding: 10rpx;
   width: 95%;
   margin: 10rpx auto;
   margin-bottom: 20rpx;
+  font-size: 36rpx;
 }
 
 .msgbox_in_img {

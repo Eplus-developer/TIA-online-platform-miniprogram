@@ -12,7 +12,7 @@
 
       <view class='form-item'>
         <view class='item-title'>昵称:</view>
-        <input name="username"></input>
+        <input name="username" placeholder="您的昵称"></input>
       </view>
 
       <view class='form-item'>
@@ -26,7 +26,7 @@
 
       <view class='form-item'>
         <view class='item-title'>学号:</view>
-        <input name="userNumber"></input>
+        <input name="userNumber" placeholder="您的学号"></input>
       </view>
 
       <view class='form-item'>
@@ -49,27 +49,27 @@
 
       <view class='form-item'>
         <view class='item-title'>电话:</view>
-        <input name="userPhone"></input>
+        <input name="userPhone" placeholder="您的电话"></input>
       </view>
 
       <view class='form-item'>
         <view class='item-title'>邮箱:</view>
-        <input name="userEmail"></input>
+        <input name="userEmail" placeholder="您的邮箱"></input>
       </view>
 
       <view class='form-item'>
         <view class='item-title'>专长:</view>
-        <input name="userSpecialty"></input>
+        <input name="userSpecialty" placeholder="您的专长"></input>
       </view>
 
       <view class='form-item'>
         <view class='item-title'>微信号:</view>
-        <input name="wxId"></input>
+        <input name="wxId" placeholder="您的微信号"></input>
       </view>
 
       <view class='form-item'>
         <view class='item-title'>简介:</view>
-        <textarea name="userResume"></textarea>
+        <textarea name="userResume" placeholder="编辑您的简介"></textarea>
       </view>
     </view>
 

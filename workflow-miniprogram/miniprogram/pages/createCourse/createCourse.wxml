@@ -6,28 +6,28 @@
 
       <view class='form-item'>
         <view class='item-title'>课程名称:</view>
-        <input name="coursename"></input>
+        <input name="coursename" placeholder='课程名称'></input>
       </view>
 
-      <view>
-        <view class='item-title'>主讲人</view>
-        <input name='lecturer'></input>
+      <view class='form-item'>
+        <view class='item-title'>主讲人:</view> 
+        <input name='lecturer' placeholder='主讲人'></input>
       </view>
 
-      <view>
-        <view class='item-title'>手机号码</view>
-        <input name='phone'></input>
+      <view class='form-item'>
+        <view class='item-title'>手机号码:</view>
+        <input name='phone' placeholder="手机号码"></input>
       </view>
 
-      <view>
-        <view class='item-title'>上课日期</view>
+      <view class='form-item'>
+        <view class='item-title'>上课日期:</view>
         <picker mode='date' value='{{date}}' start='2019-12-21' end='2022-01-01' bindchange='dateChange'>
           <view class='picker'>{{date}}</view>
         </picker>
       </view>
 
-      <view>
-        <view class='item-title'>上课时间</view>
+      <view class='form-item'>
+        <view class='item-title'>上课时间:</view>
         <picker mode='time' value='{{time}}' bindchange='timeChange'>
           <view class='picker'>{{time}}</view>
         </picker>
@@ -35,12 +35,12 @@
 
       <view class='form-item'>
         <view class='item-title'>课程简介:</view>
-        <textarea name="description"></textarea>
+        <textarea name="description" placeholder="输入对课程的简介"></textarea>
       </view>
     </view>
 
     <view class='tia-btn'>
-      <button form-type='submit'>提交修改</button>
+      <button form-type='submit'>创建课程</button>
     </view>
   </form>
 </view>
