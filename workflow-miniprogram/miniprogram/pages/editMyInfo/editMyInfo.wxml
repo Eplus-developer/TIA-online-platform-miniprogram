@@ -2,13 +2,14 @@
 <view class='page'>
   <form bindsubmit="formSubmit">
     <view class='form-info'>
-      <view class='form-title'>个 人 信 息</view>
 
       <view class='form-item'>
         <navigator url='/pages/selfInfo/selfInfo' hover-class='none'>
           <open-data type="userAvatarUrl" class="top-avatar" id="userinfo"></open-data>
         </navigator>
       </view>
+
+      <view class='form-title'>个人信息</view>
 
       <view class='form-item'>
         <view class='item-title'>昵称:</view>

@@ -7,17 +7,16 @@
   flex-direction: column;
 }
 
-/* .avatar-item {
+.avatar-item {
   text-align: center;
-} */
+}
 
 .top-avatar {
-  margin-top: 20rpx;
-  height: 120rpx;
-  width: 120rpx;
+  height: 200rpx;
+  width: 200rpx;
   border-radius: 50%;
   border: 5rpx solid white;
-  display: flex;
+  display: flex; 
   overflow: hidden;
 }
 
@@ -45,7 +44,6 @@
   width: 60rpx;
 }
 
-
 .tia-btn {
   width: 50%;
   margin: 50rpx auto;
@@ -71,8 +69,9 @@
 
 .form-title {
   text-align: center;
-  font-size: 60rpx;
-  color: #4a69bd;
+  font-size: 40rpx;
+  color: #7286bd;
+  margin-bottom: 10rpx;
 }
 
 .item-title{
@@ -86,6 +85,10 @@
   display: flex;
   flex-direction: row;
   border-bottom: 2rpx dashed #7286bdab;
+}
+
+.form-item:first-child{
+  border-bottom: none;
 }
 
 .form-item:last-child{
