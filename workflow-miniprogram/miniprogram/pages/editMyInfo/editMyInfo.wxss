@@ -7,8 +7,9 @@
   flex-direction: column;
 }
 
-.avatar-item {
-  text-align: center;
+
+.avatar-box {
+  margin: 10rpx auto;
 }
 
 .top-avatar {

@@ -4,7 +4,7 @@
     <view class='form-info'>
 
       <view class='form-item'>
-        <navigator url='/pages/selfInfo/selfInfo' hover-class='none'>
+        <navigator class="avatar-box" url='/pages/selfInfo/selfInfo' hover-class='none'>
           <open-data type="userAvatarUrl" class="top-avatar" id="userinfo"></open-data>
         </navigator>
       </view>
