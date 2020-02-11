@@ -41,9 +41,12 @@
   </block>
 
   <view class='divider'></view>
-  <view class="expanded-btn-upper" hidden="{{!createButtonExpand}}">
+  <navigator url="/pages/createRecruit/createRecruit">
+    <view class="expanded-btn-upper" hidden="{{!createButtonExpand}}">
     发布招聘
   </view>
+  </navigator>
+  
   <navigator url="/pages/createCourse/createCourse">
     <view class='expanded-btn-lower' hidden="{{!createButtonExpand}}">
       发布课程
