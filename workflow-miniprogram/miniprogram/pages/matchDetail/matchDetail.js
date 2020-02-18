@@ -22,7 +22,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081//activity/' + wx.getStorageSync('matchId'),
+      url : getApp().globalData.baseURL + '//activity/' + wx.getStorageSync('matchId'),
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -95,7 +95,7 @@ Page({
   changeFocus: function(e) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/user/activity/' + that.data.match.activityId,
+      url : getApp().globalData.baseURL + '/user/activity/' + that.data.match.activityId,
       method: 'put',
       header: {
         'content-type': 'application/json',
@@ -117,7 +117,7 @@ Page({
   createRecruit: function (e) {
     // 判断是否已经有团队
     wx.request({
-      url: 'http://localhost:8081/team/joinedTeam',
+      url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'get',
       header: {
         'content-type': 'application/json',

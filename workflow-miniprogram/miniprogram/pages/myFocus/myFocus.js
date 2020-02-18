@@ -57,7 +57,7 @@ Page({
 
     //同学
     wx.request({
-      url: 'http://localhost:8081/user/myself',
+      url : getApp().globalData.baseURL + '/user/myself',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -65,7 +65,7 @@ Page({
       },
       success: function (res) {
         wx.request({
-          url: 'http://localhost:8081/user/' + res.data.data + '/followingUser',
+          url : getApp().globalData.baseURL + '/user/' + res.data.data + '/followingUser',
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -93,7 +93,7 @@ Page({
 
         //比赛
         wx.request({
-          url: 'http://localhost:8081/user/' + res.data.data + '/followedActivity',
+          url : getApp().globalData.baseURL + '/user/' + res.data.data + '/followedActivity',
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -119,7 +119,7 @@ Page({
 
         //招聘
         wx.request({
-          url: 'http://localhost:8081/user/' + res.data.data + '/followedRecruit',
+          url : getApp().globalData.baseURL + '/user/' + res.data.data + '/followedRecruit',
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -127,7 +127,7 @@ Page({
           },
           success: function (res2) {
             console.log(res2.data.data);
-            
+
             //todo
             //mock image
             for (var i = 0; i < res2.data.data.length; i++) {
@@ -226,7 +226,7 @@ Page({
   changeFocus: function (e) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+      url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
       method: 'delete',
       header: {
         'content-type': 'application/json',

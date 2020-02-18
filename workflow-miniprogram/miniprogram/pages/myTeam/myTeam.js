@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/team/joinedTeam',
+      url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -103,7 +103,7 @@ Page({
       url: '/pages/othersInfo/othersInfo',
     })
   },
-  
+
   toDetail: function (e) {
     wx.setStorageSync('teamId', e.currentTarget.id)
     console.log(wx.getStorageSync('teamId'));

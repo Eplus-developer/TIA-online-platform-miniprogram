@@ -22,7 +22,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081//activity/' + wx.getStorageSync('matchId'),
+      url : getApp().globalData.baseURL + '//activity/' + wx.getStorageSync('matchId'),
       method: 'GET',
       header: {
         'content-type': 'application/json',

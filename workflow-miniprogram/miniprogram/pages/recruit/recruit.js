@@ -29,7 +29,7 @@ Page({
     console.log(this.data.time);
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/recruit/all?currentTime=' + that.data.time + '&pageNum=0',
+      url : getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&pageNum=0',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -102,7 +102,7 @@ Page({
     var nowTime = util.formatDateTime(new Date());
     console.log("fresh! Time: " + that.data.time);
     wx.request({
-      url: 'http://localhost:8081/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
+      url : getApp().globalData.baseURL + '/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -147,7 +147,7 @@ Page({
     var that = this;
     if (that.data.recruitName == "") {
       wx.request({
-        url: 'http://localhost:8081/recruit/all?' + that.data.recruitName + 'currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
+        url : getApp().globalData.baseURL + '/recruit/all?' + that.data.recruitName + 'currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -155,7 +155,7 @@ Page({
         },
         success: function(res) {
           console.log(res.data.data);
-          
+
           //todo
           //mock image
           for (var i = 0; i < res.data.data.length; i++) {
@@ -172,7 +172,7 @@ Page({
       })
     } else {
       wx.request({
-        url: 'http://localhost:8081/recruit/all?currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
+        url : getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -212,7 +212,7 @@ Page({
     var that = this;
     if (e.currentTarget.dataset.id.followed == true) {
       wx.request({
-        url: 'http://localhost:8081/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'delete',
         header: {
           'content-type': 'application/json',
@@ -234,7 +234,7 @@ Page({
       })
     } else {
       wx.request({
-        url: 'http://localhost:8081/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'put',
         header: {
           'content-type': 'application/json',
@@ -274,7 +274,7 @@ Page({
       cancelText: '取消',
       success: function(res) {
         wx.request({
-          url: 'http://localhost:8081/recruit/' + e.currentTarget.dataset.id.recruitId,
+          url : getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.id.recruitId,
           method: 'delete',
           header: {
             'content-type': 'application/json',
@@ -316,7 +316,7 @@ Page({
   screen: function(e) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/recruit/all?recruitName=' + that.data.recruitName + '&currentTime=' + that.data.time + '&pageNum=0',
+      url : getApp().globalData.baseURL + '/recruit/all?recruitName=' + that.data.recruitName + '&currentTime=' + that.data.time + '&pageNum=0',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -355,7 +355,7 @@ Page({
   createRecruit: function(e) {
     // 判断是否已经有团队
     wx.request({
-      url: 'http://localhost:8081/team/joinedTeam',
+      url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'get',
       header: {
         'content-type': 'application/json',

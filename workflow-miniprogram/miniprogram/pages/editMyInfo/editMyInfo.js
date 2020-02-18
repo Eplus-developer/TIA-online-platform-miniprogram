@@ -90,7 +90,7 @@ Page({
   formSubmit: function(e){
     console.log(e.detail.value);
     wx.request({
-      url: 'http://localhost:8081/user/self',
+      url : getApp().globalData.baseURL + '/user/self',
       method: 'PUT',
       data: {
         username: e.detail.value.username,

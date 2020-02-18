@@ -20,7 +20,7 @@ Page({
     var that = this;
     //获取比赛
     wx.request({
-      url: 'http://localhost:8081/activity/all?type=fresh',
+      url : getApp().globalData.baseURL + '/activity/all?type=fresh',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -39,7 +39,7 @@ Page({
 
     //获取团队
     wx.request({
-      url: 'http://localhost:8081/team/joinedTeam',
+      url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -49,7 +49,7 @@ Page({
         that.setData({
           teams: that.data.teams.concat(res.data.data)
         })
-        console.log(that.data.teams);        
+        console.log(that.data.teams);
       },
       fail: function (res) {
         console.log("fail!");
@@ -103,12 +103,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   },
 
   positionChange: function(e){
     this.setData({
-      posIndex: e.detail.value 
+      posIndex: e.detail.value
     })
   },
 
@@ -134,7 +134,7 @@ Page({
     }else{
       var that = this;
       wx.request({
-        url: 'http://localhost:8081/user/myself',
+        url : getApp().globalData.baseURL + '/user/myself',
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -142,7 +142,7 @@ Page({
         },
         success: function (res) {
           wx.request({
-            url: 'http://localhost:8081/recruit',
+            url : getApp().globalData.baseURL + '/recruit',
             method: 'POST',
             data: {
               "recruitName": e.detail.value.name,

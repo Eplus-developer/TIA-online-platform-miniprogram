@@ -10,7 +10,7 @@ App({
         if(code){
           console.log("获取用户登录凭证：" + code);
           wx.request({
-            url: 'http://localhost:8081/login',
+            url : getApp().globalData.baseURL + '/login',
             data: {
               code: code
             },
@@ -57,6 +57,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    baseURL: 'http://47.103.95.85:8080'
   }
 })

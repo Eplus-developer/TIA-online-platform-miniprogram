@@ -21,7 +21,7 @@ Page({
     var userId = wx.getStorageSync('userId');
     //获取关注数
     wx.request({
-      url: 'http://localhost:8081/user/' + userId + '/followingUser',
+      url : getApp().globalData.baseURL + '/user/' + userId + '/followingUser',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -46,7 +46,7 @@ Page({
 
     //获取粉丝数
     wx.request({
-      url: 'http://localhost:8081/user/' + userId + '/followedUser',
+      url : getApp().globalData.baseURL + '/user/' + userId + '/followedUser',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -71,7 +71,7 @@ Page({
 
     //获取个人信息
     wx.request({
-      url: 'http://localhost:8081/user/' + userId + '/detailPage',
+      url : getApp().globalData.baseURL + '/user/' + userId + '/detailPage',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -142,7 +142,7 @@ Page({
     var that = this;
     console.log(wx.getStorageSync('userId'));
     wx.request({
-      url: 'http://localhost:8081/user/follower/' + wx.getStorageSync('userId'),
+      url : getApp().globalData.baseURL + '/user/follower/' + wx.getStorageSync('userId'),
       method: 'PUT',
       header: {
         'content-type': 'application/json',

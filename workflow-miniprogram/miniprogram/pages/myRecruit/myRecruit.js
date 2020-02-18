@@ -34,7 +34,7 @@ Page({
 
     // 我的申请
     wx.request({
-      url: 'http://localhost:8081/recruit/appliedRecruit',
+      url : getApp().globalData.baseURL + '/recruit/appliedRecruit',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -54,7 +54,7 @@ Page({
 
     // 待处理的提交的申请
     wx.request({
-      url: 'http://localhost:8081/recruit/myAppliedUsers',
+      url : getApp().globalData.baseURL + '/recruit/myAppliedUsers',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -137,7 +137,7 @@ Page({
       })
     }, 500)
   },
- 
+
   toOthersInfo: function (e) {
     wx.setStorageSync('userId', e.currentTarget.dataset.id);
     wx.navigateTo({
@@ -148,7 +148,7 @@ Page({
   acceptApply: function(e){
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/recruit/' + e.currentTarget.dataset.recruitId + '/user/' + e.currentTarget.dataset.userId,
+      url : getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.recruitId + '/user/' + e.currentTarget.dataset.userId,
       method: 'PUT',
       header: {
         'content-type': 'application/json',
@@ -171,7 +171,7 @@ Page({
     var that = this;
     if (e.currentTarget.dataset.id.followed == true) {
       wx.request({
-        url: 'http://localhost:8081/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'delete',
         header: {
           'content-type': 'application/json',
@@ -194,7 +194,7 @@ Page({
     }
     else {
       wx.request({
-        url: 'http://localhost:8081/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'put',
         header: {
           'content-type': 'application/json',
@@ -226,7 +226,7 @@ Page({
       cancelText: '取消',
       success: function (res) {
         wx.request({
-          url: 'http://localhost:8081/user/myself',
+          url : getApp().globalData.baseURL + '/user/myself',
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -234,7 +234,7 @@ Page({
           },
           success: function (res) {
             wx.request({
-              url: 'http://localhost:8081/recruit/' + e.currentTarget.dataset.recruitId + '/appliedUser/' + res.data.data,
+              url : getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.recruitId + '/appliedUser/' + res.data.data,
               method: 'DELETE',
               header: {
                 'content-type': 'application/json',

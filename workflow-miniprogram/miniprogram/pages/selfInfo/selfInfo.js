@@ -20,7 +20,7 @@ Page({
     var that = this;
     //获取userId
     wx.request({
-      url: 'http://localhost:8081/user/myself',
+      url : getApp().globalData.baseURL + '/user/myself',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -30,7 +30,7 @@ Page({
         var userId = res.data.data;
         //获取关注数
         wx.request({
-          url: 'http://localhost:8081/user/' + userId + '/followingUser',
+          url : getApp().globalData.baseURL + '/user/' + userId + '/followingUser',
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -48,7 +48,7 @@ Page({
 
         //获取粉丝数
         wx.request({
-          url: 'http://localhost:8081/user/' + userId + '/followedUser',
+          url : getApp().globalData.baseURL + '/user/' + userId + '/followedUser',
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -66,7 +66,7 @@ Page({
 
         //获取个人信息
         wx.request({
-          url: 'http://localhost:8081/user/' + userId + '/detailPage',
+          url : getApp().globalData.baseURL + '/user/' + userId + '/detailPage',
           method: 'GET',
           header: {
             'content-type': 'application/json',

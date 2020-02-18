@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/team/joinedTeam',
+      url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'GET',
       header: {
         'content-type': 'application/json',

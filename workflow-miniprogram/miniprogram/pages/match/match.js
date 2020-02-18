@@ -115,7 +115,7 @@ Page({
     });
 
     wx.request({
-      url: 'http://localhost:8081/activity/all?type=fresh',
+      url : getApp().globalData.baseURL + '/activity/all?type=fresh',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -152,7 +152,7 @@ Page({
     });
 
     wx.request({
-      url: 'http://localhost:8081/activity/all?type=finish',
+      url : getApp().globalData.baseURL + '/activity/all?type=finish',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -253,5 +253,5 @@ Page({
     // console.log(e.currentTarget.id);
     wx.setStorageSync('matchId', e.currentTarget.id);
   }
-  
+
 })

@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'http://localhost:8081/recruit/' + wx.getStorageSync('recruitId'),
+      url : getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId'),
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -36,7 +36,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
@@ -83,7 +83,7 @@ Page({
 
   applyRecruit: function(){
     wx.request({
-      url: 'http://localhost:8081/user/myself',
+      url : getApp().globalData.baseURL + '/user/myself',
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -91,7 +91,7 @@ Page({
       },
       success: function (res) {
         wx.request({
-          url: 'http://localhost:8081/recruit/' + wx.getStorageSync('recruitId') + '/appliedUser/' + res.data.data,
+          url : getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId') + '/appliedUser/' + res.data.data,
           method: 'PUT',
           header: {
             'content-type': 'application/json',

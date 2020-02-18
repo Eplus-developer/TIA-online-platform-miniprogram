@@ -162,9 +162,9 @@ function initChart(canvas, width, height) {
   };
 
   var option = {
-    
 
-    
+
+
     tooltip: {
       trigger: "item",
       formatter: (params) => {
@@ -173,7 +173,7 @@ function initChart(canvas, width, height) {
     },
 
     label: {
-      
+
       formatter: (params) => {
         return '{a|' + params.data.name+ '}';
       },
@@ -230,7 +230,7 @@ function initChart(canvas, width, height) {
       // subtext:'展示项目的预计生命周期以及实际状态✌️',
       left:'3%'
     },
-    
+
   };
 
   chart.setOption(option);
@@ -271,7 +271,7 @@ Page({
     });
 
     wx.request({
-      url: 'http://localhost:8081/team/' + wx.getStorageSync('teamId') + '/members',
+      url : getApp().globalData.baseURL + '/team/' + wx.getStorageSync('teamId') + '/members',
       method: 'GET',
       header: {
         'content-type': 'application/json',
