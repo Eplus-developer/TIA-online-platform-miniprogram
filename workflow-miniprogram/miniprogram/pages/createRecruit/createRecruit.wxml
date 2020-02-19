@@ -17,9 +17,9 @@
       </view>
       <view class='form-item'>
         <view class='item-title'>所属比赛:</view>
-        <picker name="match" bindchange="matchChange" value="{{matchIndex}}" range="{{matchs}}" range-key="activityName">
+        <picker name="match" bindchange="matchChange" value="{{matchIndex}}" range="{{matches}}" range-key="name">
           <view class="picker">
-            {{matchs[matchIndex].activityName}}
+            {{matches[matchIndex].name}}
           </view>
         </picker>
       </view>

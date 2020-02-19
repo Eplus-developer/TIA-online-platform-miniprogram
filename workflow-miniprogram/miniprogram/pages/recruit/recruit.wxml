@@ -21,7 +21,7 @@
         </view>
         <view>
           <image src='{{item.followed == true ? "/image/focus.png" : "/image/unfocus.png"}}' data-id='{{item}}' catchtap='changeFocus' hover-class="none" class='img'></image>
-          <!-- <image src='/image/delete.png' class='img' catchtap='deleteRecruit' data-id='{{item}}'></image> -->
+          <image src='/image/delete.png' class='img' catchtap='deleteRecruit' data-id='{{item}}'></image>
         </view>
       </view>
       <view class="weui-media-box__title weui-media-box__title_in-text">{{item.recruitName}}</view>
@@ -41,11 +41,9 @@
   </block>
 
   <view class='divider'></view>
-  <navigator url="/pages/createRecruit/createRecruit">
-    <view class="expanded-btn-upper" hidden="{{!createButtonExpand}}">
+    <view bindtap="createRecruit" class="expanded-btn-upper" hidden="{{!createButtonExpand}}">
     发布招聘
   </view>
-  </navigator>
   
   <navigator url="/pages/createCourse/createCourse">
     <view class='expanded-btn-lower' hidden="{{!createButtonExpand}}">

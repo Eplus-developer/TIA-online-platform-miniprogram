@@ -1,4 +1,3 @@
-var sliderWidth = 120; // 需要设置slider的宽度，用于计算中间位置
 var util = require('../../utils/util.js')
 const MONTHS = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'June.', 'July.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
 Page({
@@ -7,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sliderWidth: 40,
     imgUrls: [
       'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m1.jpg',
       'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m2.jpg',
@@ -61,9 +61,11 @@ Page({
     const days_count = new Date(this.data.year, this.data.month, 0).getDate();
     var that = this;
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
+        var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
         that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderWidth: sliderWidth_new,
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth_new) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
         });
       }

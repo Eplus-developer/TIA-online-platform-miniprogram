@@ -1,8 +1,6 @@
 // pages/workflowDetails/workflowDetails.js
 import * as echarts from '../../ec-canvas/echarts';
 
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
-
 const app = getApp();
 
 function initChart(canvas, width, height) {
@@ -244,6 +242,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sliderWidth: 96,
     tabs: ["状态展示", "信息汇总", "团队成员"],
     activeIndex: 0,
     sliderOffset: 0,
@@ -263,8 +262,10 @@ Page({
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
+        var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
         that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderWidth: sliderWidth_new,
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth_new) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
         });
       }

@@ -6,7 +6,7 @@ Page({
    */
   data: {
     positionArr:['请选择', '前端', 'JAVA', 'C#', 'python', '美工', 'C/C++', '其他'],
-    matchs:['比赛1','比赛2','比赛3'],
+    matches:['比赛1','比赛2','比赛3'],
     teams: [{teamName:'请选择'}],
     posIndex: 0,
     matchIndex: 0,
@@ -20,17 +20,17 @@ Page({
     var that = this;
     //获取比赛
     wx.request({
-      url : getApp().globalData.baseURL + '/activity/all?type=fresh',
+      url: getApp().globalData.baseURL + '/activity/all/competition?type=fresh',
       method: 'GET',
       header: {
         'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
-        console.log(res.data.data);
         that.setData({
-          matchs: res.data.data
+          matches: res.data.data
         })
+        console.log(that.data.matches);
       },
       fail: function (res) {
         console.log("fail!");
@@ -142,23 +142,13 @@ Page({
         },
         success: function (res) {
           wx.request({
-            url : getApp().globalData.baseURL + '/recruit',
+            url: getApp().globalData.baseURL + '/recruit/' + that.data.matches[e.detail.value.match].id + '?' + 'teamId=' + that.data.teams[e.detail.value.team].teamId,
             method: 'POST',
             data: {
               "recruitName": e.detail.value.name,
               "recruitPosition": that.data.positionArr[e.detail.value.position],
               "recruitDescription": e.detail.value.intro,
               "recruitWillingNumber": e.detail.value.personNum,
-              "recruitRegisteredNumber": 0,
-              "manager": {
-                "userId": res.data.data
-              },
-              "activity": {
-                "activityId": that.data.matchs[e.detail.value.match].activityId
-              }
-              // "Team": {
-              //   "teamId": teams[e.detail.value.team].teamId
-              // },
             },
             header: {
               'content-type': 'application/json',
@@ -169,7 +159,7 @@ Page({
                 title: '发布成功',
                 icon: 'success'
               })
-              wx.navigateTo({
+              wx.switchTab({
                 url: '/pages/recruit/recruit',
               })
             },
