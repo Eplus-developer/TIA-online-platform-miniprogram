@@ -25,7 +25,8 @@ Page({
       url : getApp().globalData.baseURL + '//activity/' + wx.getStorageSync('matchId'),
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res) {
@@ -98,7 +99,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/activity/' + that.data.match.activityId,
       method: 'put',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res) {
@@ -120,7 +122,8 @@ Page({
       url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'get',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {

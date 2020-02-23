@@ -24,7 +24,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/' + userId + '/followingUser',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -49,7 +50,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/' + userId + '/followedUser',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -74,7 +76,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/' + userId + '/detailPage',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -145,7 +148,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/follower/' + wx.getStorageSync('userId'),
       method: 'PUT',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {

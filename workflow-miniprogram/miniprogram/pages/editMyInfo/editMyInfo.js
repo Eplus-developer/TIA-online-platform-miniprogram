@@ -105,7 +105,8 @@ Page({
         userResume: e.detail.value.userResume
       },
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res){

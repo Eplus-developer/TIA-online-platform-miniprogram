@@ -275,7 +275,8 @@ Page({
       url : getApp().globalData.baseURL + '/team/' + wx.getStorageSync('teamId') + '/members',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {

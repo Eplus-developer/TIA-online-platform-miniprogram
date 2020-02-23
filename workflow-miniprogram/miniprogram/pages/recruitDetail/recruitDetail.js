@@ -17,7 +17,8 @@ Page({
       url : getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId'),
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res){
@@ -86,7 +87,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/myself',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -94,7 +96,8 @@ Page({
           url : getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId') + '/appliedUser/' + res.data.data,
           method: 'PUT',
           header: {
-            'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
           success: function (res) {

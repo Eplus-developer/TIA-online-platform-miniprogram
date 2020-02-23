@@ -60,7 +60,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/myself',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -68,7 +69,8 @@ Page({
           url : getApp().globalData.baseURL + '/user/' + res.data.data + '/followingUser',
           method: 'GET',
           header: {
-            'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
           success: function (res2) {
@@ -96,7 +98,8 @@ Page({
           url : getApp().globalData.baseURL + '/user/' + res.data.data + '/followedActivity',
           method: 'GET',
           header: {
-            'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
           success: function (res2) {
@@ -122,7 +125,8 @@ Page({
           url : getApp().globalData.baseURL + '/user/' + res.data.data + '/followedRecruit',
           method: 'GET',
           header: {
-            'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
           success: function (res2) {
@@ -229,7 +233,8 @@ Page({
       url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
       method: 'delete',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {

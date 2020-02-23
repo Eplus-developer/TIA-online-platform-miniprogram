@@ -23,7 +23,8 @@ Page({
       url: getApp().globalData.baseURL + '/activity/all/competition?type=fresh',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -42,7 +43,8 @@ Page({
       url : getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
@@ -137,7 +139,8 @@ Page({
         url : getApp().globalData.baseURL + '/user/myself',
         method: 'GET',
         header: {
-          'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
         success: function (res) {
@@ -151,7 +154,8 @@ Page({
               "recruitWillingNumber": e.detail.value.personNum,
             },
             header: {
-              'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
               'openid': wx.getStorageSync('openid')
             },
             success: function (res2) {

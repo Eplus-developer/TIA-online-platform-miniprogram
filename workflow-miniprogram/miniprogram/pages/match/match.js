@@ -120,7 +120,8 @@ Page({
       url : getApp().globalData.baseURL + '/activity/all?type=fresh',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res){
@@ -157,7 +158,8 @@ Page({
       url : getApp().globalData.baseURL + '/activity/all?type=finish',
       method: 'GET',
       header: {
-        'content-type': 'application/json',
+      ...(getApp().globalData.globalHeaders),
+      'content-type': 'application/json',
         // 'content-type': 'application/x-www-form-urlencoded',
         'openid': wx.getStorageSync('openid')
       },
