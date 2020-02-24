@@ -32,13 +32,12 @@ Page({
     }],
 
     cutoffMatchs: [{
-        id: 1,
-        img: "https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m5.png",
-        title: "创青春国赛",
-        level: "国家级",
-        time: "2019年4月28日",
-      }
-    ],
+      id: 1,
+      img: "https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m5.png",
+      title: "创青春国赛",
+      level: "国家级",
+      time: "2019年4月28日",
+    }],
     matchList: [{
       id: 1,
       name: "双创比赛",
@@ -61,7 +60,7 @@ Page({
     const days_count = new Date(this.data.year, this.data.month, 0).getDate();
     var that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
         that.setData({
           sliderWidth: sliderWidth_new,
@@ -117,14 +116,14 @@ Page({
     });
 
     wx.request({
-      url : getApp().globalData.baseURL + '/activity/all?type=fresh',
+      url: getApp().globalData.baseURL + '/activity/all?type=fresh',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
-      success: function(res){
+      success: function(res) {
         // console.log(res.data.data);
         // 时间格式化
         for (let i = 0; i < res.data.data.length; i++) {
@@ -138,35 +137,34 @@ Page({
         that.setData({
           matchs: res.data.data
         })
-        if(that.data.matchs.length == 0){
+        if (that.data.matchs.length == 0) {
           that.setData({
             hasMatch: 0
           })
-        }
-        else{
+        } else {
           that.setData({
             hasMatch: 1
           })
         }
       },
-      fail: function(res){
+      fail: function(res) {
         console.log("fail!");
       }
     });
 
     wx.request({
-      url : getApp().globalData.baseURL + '/activity/all?type=finish',
+      url: getApp().globalData.baseURL + '/activity/all?type=finish',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         // 'content-type': 'application/x-www-form-urlencoded',
         'openid': wx.getStorageSync('openid')
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res.data.data);
         // 时间格式化
-        for (let i = 0; i < res.data.data.length; i++){
+        for (let i = 0; i < res.data.data.length; i++) {
           res.data.data[i].activitySignUpDeadline = util.formatTime(new Date(res.data.data[i].activitySignUpDeadline))
           res.data.data[i].activityTime = util.formatTime(new Date(res.data.data[i].activityTime))
 
@@ -177,18 +175,17 @@ Page({
         that.setData({
           cutoffMatchs: res.data.data
         })
-        if(that.data.cutoffMatchs.length==0){
+        if (that.data.cutoffMatchs.length == 0) {
           that.setData({
             hasCutoffMatch: 0
           })
-        }
-        else{
+        } else {
           that.setData({
             hasCotoffMatch: 1
           })
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("fail!");
       }
     })
@@ -253,7 +250,7 @@ Page({
     });
   },
 
-  matchClick: function(e){
+  matchClick: function(e) {
     // console.log(e.currentTarget.id);
     wx.setStorageSync('matchId', e.currentTarget.id);
   }

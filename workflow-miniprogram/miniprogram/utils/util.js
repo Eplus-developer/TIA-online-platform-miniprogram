@@ -27,6 +27,24 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const fetchUtil = (url, method, data, headers={}) => {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: getApp().globalData.baseURL + url,
+      method: method,
+      data: data,
+      header: {
+        ...headers,
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
+        'openid': wx.getStorageSync('openid')
+      },
+      success: (res) => resolve(res),
+      fail: (err) => reject(err)
+    })
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDateTime: formatDateTime

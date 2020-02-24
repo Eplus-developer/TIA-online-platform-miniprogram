@@ -14,7 +14,7 @@
 
         <!-- tab1 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='page' hidden="{{hasRecruit != 0}}">
+          <view class='page' hidden="{{hasApply != 0}}">
             <view class='none'>
               <image src='/image/meh.png' class='none-img'></image>
               <view class='none-text'>你还没有应聘职位哦</view>

@@ -1,4 +1,7 @@
+import 'weapp-cookie'
+
 //app.js
+
 App({
   onLaunch: function() {
     // 登录
@@ -9,6 +12,7 @@ App({
         var code = res.code;
         if (code) {
           console.log("获取用户登录凭证：" + code);
+
           wx.request({
             url: getApp().globalData.baseURL + '/wxLogin',
             data: {
@@ -19,30 +23,15 @@ App({
               ...(getApp().globalData.globalHeaders),
               'content-type': 'application/json',
             },
-            success: function(res) {
+            success: function (res) {
               if (res.statusCode == 200) {
                 console.log("get openid success!");
                 wx.setStorageSync('openid', res.data.data);
               } else {
                 console.log("get openid fail!");
               }
-
-              wx.request({
-                url: getApp().globalData.baseURL + '/getSssionId',
-                method: 'GET',
-                header: {
-                  'content-type': 'application/json'
-                },
-                success: function(res) {
-                  if (res.statusCode == 200) {
-                    console.log("get token successful!")
-                    console.log(res.data.data)
-                    getApp().globalData.globalHeaders.token = res.data.data
-                  }
-                }
-              })
             },
-            fail: function(res) {
+            fail: function (res) {
               console.log("fail!");
             }
           })
@@ -75,8 +64,7 @@ App({
   globalData: {
     userInfo: null,
     baseURL: 'http://47.103.95.85:8080',
-    globalHeaders: {
-      token: ''
-    }
+    // baseURL: 'http://localhost:8080',
+    globalHeaders: {}
   }
 })

@@ -12,17 +12,17 @@ Page({
     hasOthersApply: 0,
     hasApply: 0,
     othersApplyList: [],
-    applyList:[],
+    applyList: [],
     sliderWidth: 96,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
         that.setData({
           sliderWidth: sliderWidth_new,
@@ -34,42 +34,42 @@ Page({
 
     // 我的申请
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/appliedRecruit',
+      url: getApp().globalData.baseURL + '/recruit/appliedRecruit',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
-      success: function (res) {
+      success: function(res) {
         console.log(res.data.data);
         that.setData({
           applyList: res.data.data,
           hasApply: res.data.data.length
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("fail!");
       }
     })
 
     // 待处理的提交的申请
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/myAppliedUsers',
+      url: getApp().globalData.baseURL + '/recruit/myAppliedUsers',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
-      success: function (res) {
+      success: function(res) {
         console.log(res.data.data);
         that.setData({
           othersApplyList: res.data.data,
           hasOthersApply: res.data.data.length
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("fail!");
       }
     })
@@ -78,60 +78,60 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
-  tabClick: function (e) {
+  tabClick: function(e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
   },
 
-  toDetail: function (e) {
+  toDetail: function(e) {
     wx.setStorageSync('recruitId', e.currentTarget.id);
     setTimeout(() => {
       wx.navigateTo({
@@ -140,79 +140,78 @@ Page({
     }, 500)
   },
 
-  toOthersInfo: function (e) {
+  toOthersInfo: function(e) {
     wx.setStorageSync('userId', e.currentTarget.dataset.id);
     wx.navigateTo({
       url: '/pages/othersInfo/othersInfo',
     })
   },
 
-  acceptApply: function(e){
+  acceptApply: function(e) {
     var that = this;
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.recruitId + '/user/' + e.currentTarget.dataset.userId,
+      url: getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.recruitId + '/user/' + e.currentTarget.dataset.userId,
       method: 'PUT',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
-      success: function(res){
+      success: function(res) {
         wx.showToast({
           title: '已同意',
           icon: 'success'
         })
         that.onLoad();
       },
-      fail: function(res){
+      fail: function(res) {
         console.log("accept fail!");
       }
     })
   },
 
-  changeFocus: function (e) {
+  changeFocus: function(e) {
     var that = this;
     if (e.currentTarget.dataset.id.followed == true) {
       wx.request({
-        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url: getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'delete',
         header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+          ...(getApp().globalData.globalHeaders),
+          'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
-        success: function (res) {
+        success: function(res) {
           wx.showToast({
             title: '取消收藏',
             icon: 'success'
           })
           that.onLoad();
         },
-        fail: function (res) {
+        fail: function(res) {
           wx.showToast({
             title: '操作失败',
             icon: 'success'
           })
         }
       })
-    }
-    else {
+    } else {
       wx.request({
-        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url: getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'put',
         header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+          ...(getApp().globalData.globalHeaders),
+          'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
-        success: function (res) {
+        success: function(res) {
           wx.showToast({
             title: '收藏成功',
             icon: 'success'
           })
           that.onLoad();
         },
-        fail: function (res) {
+        fail: function(res) {
           wx.showToast({
             title: '操作失败',
             icon: 'success'
@@ -223,38 +222,39 @@ Page({
     this.onLoad();
   },
 
-  cancelAppliedRecruit: function(e){
+  cancelAppliedRecruit: function(e) {
     var that = this;
     wx.showModal({
       title: '是否取消申请？',
       showCancel: true,
       cancelText: '取消',
-      success: function (res) {
+      success: function(res) {
+        if (!res.confirm) return;
         wx.request({
-          url : getApp().globalData.baseURL + '/user/myself',
+          url: getApp().globalData.baseURL + '/user/myself',
           method: 'GET',
           header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+            ...(getApp().globalData.globalHeaders),
+            'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
-          success: function (res) {
+          success: function(res) {
             wx.request({
-              url : getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.recruitId + '/appliedUser/' + res.data.data,
+              url: getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.recruitId + '/appliedUser/' + res.data.data,
               method: 'DELETE',
               header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+                ...(getApp().globalData.globalHeaders),
+                'content-type': 'application/json',
                 'openid': wx.getStorageSync('openid')
               },
-              success: function (res) {
+              success: function(res) {
                 wx.showToast({
                   title: '取消申请成功！',
                   icon: 'success'
                 })
                 that.onLoad();
               },
-              fail: function (res) {
+              fail: function(res) {
                 wx.showToast({
                   title: '操作失败！',
                   icon: 'loading'
@@ -262,12 +262,12 @@ Page({
               }
             })
           },
-          fail: function (res) {
+          fail: function(res) {
             console.log("get selfId fail!");
           }
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         wx.showToast({
           title: '操作失败！',
           icon: 'loading'

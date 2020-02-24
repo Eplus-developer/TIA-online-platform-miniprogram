@@ -29,11 +29,11 @@ Page({
     console.log(this.data.time);
     var that = this;
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&pageNum=0',
+      url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&pageNum=0',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res) {
@@ -75,10 +75,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    console.log('on show')
     var that = this
     that.setData({
       createButtonExpand: false
-    })
+    });
+    that.refreshRecruit();
   },
 
   /**
@@ -103,11 +105,11 @@ Page({
     var nowTime = util.formatDateTime(new Date());
     console.log("fresh! Time: " + that.data.time);
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
+      url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res) {
@@ -149,11 +151,11 @@ Page({
     var that = this;
     if (that.data.recruitName == "") {
       wx.request({
-        url : getApp().globalData.baseURL + '/recruit/all?' + that.data.recruitName + 'currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
+        url: getApp().globalData.baseURL + '/recruit/all?' + that.data.recruitName + 'currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
         method: 'GET',
         header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+          ...(getApp().globalData.globalHeaders),
+          'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
         success: function(res) {
@@ -175,11 +177,11 @@ Page({
       })
     } else {
       wx.request({
-        url : getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
+        url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
         method: 'GET',
         header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+          ...(getApp().globalData.globalHeaders),
+          'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
         success: function(res) {
@@ -216,11 +218,11 @@ Page({
     var that = this;
     if (e.currentTarget.dataset.id.followed == true) {
       wx.request({
-        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url: getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'delete',
         header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+          ...(getApp().globalData.globalHeaders),
+          'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
         success: function(res) {
@@ -228,7 +230,7 @@ Page({
             title: '取消收藏',
             icon: 'success'
           })
-          that.onLoad();
+          that.refreshRecruit();
         },
         fail: function(res) {
           wx.showToast({
@@ -239,11 +241,11 @@ Page({
       })
     } else {
       wx.request({
-        url : getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        url: getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
         method: 'put',
         header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+          ...(getApp().globalData.globalHeaders),
+          'content-type': 'application/json',
           'openid': wx.getStorageSync('openid')
         },
         success: function(res) {
@@ -261,7 +263,7 @@ Page({
         }
       })
     }
-    this.onLoad();
+    this.refreshRecruit();
   },
 
   toOthersInfo: function(e) {
@@ -280,20 +282,20 @@ Page({
       cancelText: '取消',
       success: function(res) {
         wx.request({
-          url : getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.id.recruitId,
+          url: getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.id.recruitId,
           method: 'delete',
           header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+            ...(getApp().globalData.globalHeaders),
+            'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
           success: function(res) {
-            if (res.confirm) {
+            if (res.data.code == 200) {
               wx.showToast({
                 title: '删除成功！',
                 icon: 'success'
               })
-              that.onLoad();
+              that.refreshRecruit();
             }
           },
           fail: function(res) {
@@ -323,11 +325,11 @@ Page({
   screen: function(e) {
     var that = this;
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/all?recruitName=' + that.data.recruitName + '&currentTime=' + that.data.time + '&pageNum=0',
+      url: getApp().globalData.baseURL + '/recruit/all?recruitName=' + that.data.recruitName + '&currentTime=' + that.data.time + '&pageNum=0',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res) {
@@ -363,11 +365,11 @@ Page({
   createRecruit: function(e) {
     // 判断是否已经有团队
     wx.request({
-      url : getApp().globalData.baseURL + '/team/joinedTeam',
+      url: getApp().globalData.baseURL + '/team/joinedTeam',
       method: 'get',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function(res) {
@@ -393,5 +395,38 @@ Page({
       createButtonExpand: !that.data.createButtonExpand
     })
     console.log(that.data.createButtonExpand)
+  },
+
+  refreshRecruit: function() {
+    var that = this
+    var nowTime = util.formatDateTime(new Date());
+    wx.request({
+      url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
+      method: 'GET',
+      header: {
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
+        'openid': wx.getStorageSync('openid')
+      },
+      success: function(res) {
+        that.setData({
+          list: res.data.data,
+          offset: 1
+        })
+        if (that.data.list.length != 0) {
+          that.setData({
+            hasRecruit: 1
+          })
+        } else {
+          that.setData({
+            hasRecruit: 0,
+            offset: 0
+          })
+        }
+      },
+      fail: function() {
+        console.error('Get recruitment failed.');
+      }
+    })
   }
 })
