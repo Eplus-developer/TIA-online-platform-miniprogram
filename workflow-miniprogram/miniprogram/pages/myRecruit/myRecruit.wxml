@@ -81,6 +81,10 @@
             </view>
           </view>
         </view>
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+        已发布招聘
+        </view>
       </view>
     </view>
   </view>

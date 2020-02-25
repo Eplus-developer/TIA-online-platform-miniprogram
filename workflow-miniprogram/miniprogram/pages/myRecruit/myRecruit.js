@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["我的申请", "处理申请"],
+    tabs: ["我的申请", "处理申请", "我发布的"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,

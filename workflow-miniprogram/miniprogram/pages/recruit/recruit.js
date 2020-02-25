@@ -253,7 +253,7 @@ Page({
             title: '收藏成功',
             icon: 'success'
           })
-          that.onLoad();
+          that.refreshRecruit();
         },
         fail: function(res) {
           wx.showToast({
@@ -281,6 +281,7 @@ Page({
       showCancel: true,
       cancelText: '取消',
       success: function(res) {
+        if (!res.confirm) return;
         wx.request({
           url: getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.id.recruitId,
           method: 'delete',
