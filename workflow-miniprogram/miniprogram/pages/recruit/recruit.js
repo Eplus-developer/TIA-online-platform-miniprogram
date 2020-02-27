@@ -274,47 +274,47 @@ Page({
     })
   },
 
-  deleteRecruit: function(e) {
-    var that = this;
-    wx.showModal({
-      title: '是否确认删除？',
-      showCancel: true,
-      cancelText: '取消',
-      success: function(res) {
-        if (!res.confirm) return;
-        wx.request({
-          url: getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.id.recruitId,
-          method: 'delete',
-          header: {
-            ...(getApp().globalData.globalHeaders),
-            'content-type': 'application/json',
-            'openid': wx.getStorageSync('openid')
-          },
-          success: function(res) {
-            if (res.data.code == 200) {
-              wx.showToast({
-                title: '删除成功！',
-                icon: 'success'
-              })
-              that.refreshRecruit();
-            }
-          },
-          fail: function(res) {
-            wx.showToast({
-              title: '操作失败！',
-              icon: 'success'
-            })
-          }
-        })
-      },
-      fail: function(res) {
-        wx.showToast({
-          title: '操作失败！',
-          icon: 'success'
-        })
-      }
-    })
-  },
+  // deleteRecruit: function(e) {
+  //   var that = this;
+  //   wx.showModal({
+  //     title: '是否确认删除？',
+  //     showCancel: true,
+  //     cancelText: '取消',
+  //     success: function(res) {
+  //       if (!res.confirm) return;
+  //       wx.request({
+  //         url: getApp().globalData.baseURL + '/recruit/' + e.currentTarget.dataset.id.recruitId,
+  //         method: 'delete',
+  //         header: {
+  //           ...(getApp().globalData.globalHeaders),
+  //           'content-type': 'application/json',
+  //           'openid': wx.getStorageSync('openid')
+  //         },
+  //         success: function(res) {
+  //           if (res.data.code == 200) {
+  //             wx.showToast({
+  //               title: '删除成功！',
+  //               icon: 'success'
+  //             })
+  //             that.refreshRecruit();
+  //           }
+  //         },
+  //         fail: function(res) {
+  //           wx.showToast({
+  //             title: '操作失败！',
+  //             icon: 'success'
+  //           })
+  //         }
+  //       })
+  //     },
+  //     fail: function(res) {
+  //       wx.showToast({
+  //         title: '操作失败！',
+  //         icon: 'success'
+  //       })
+  //     }
+  //   })
+  // },
 
   getRecruitName: function(e) {
     console.log(e.detail.value);
