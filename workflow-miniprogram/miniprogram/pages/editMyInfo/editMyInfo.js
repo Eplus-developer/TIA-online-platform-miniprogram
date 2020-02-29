@@ -1,4 +1,6 @@
 // pages/editMyInfo/editMyInfo.js
+import { checkPhone, checkEmail } from '../../utils/util'
+
 Page({
 
   /**
@@ -89,6 +91,20 @@ Page({
 
   formSubmit: function(e){
     console.log(e.detail.value);
+    if (!checkPhone(e.detail.value.userPhone)) {
+      wx.showToast({
+        title: '手机号非法',
+        icon: 'none'
+      })
+      return;
+    }
+    if (!checkEmail(e.detail.value.userEmail)) {
+      wx.showToast({
+        title: '邮箱不合法',
+        icon: 'none'
+      })
+      return;
+    }
     wx.request({
       url : getApp().globalData.baseURL + '/user/self',
       method: 'PUT',

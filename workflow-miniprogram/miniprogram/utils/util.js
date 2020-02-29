@@ -45,7 +45,19 @@ const fetchUtil = (url, method, data, headers={}) => {
   })
 }
 
+export const checkPhone = (p) => {
+  return /^1[3456789]\d{9}$/.test(p)
+}
+
+export const checkEmail = (e) => {
+  return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(e)
+}
+
+export const checkStuId = (e) => {
+  return /\d{11}/.test(e)
+}
+
 module.exports = {
   formatTime: formatTime,
-  formatDateTime: formatDateTime
+  formatDateTime: formatDateTime,
 }

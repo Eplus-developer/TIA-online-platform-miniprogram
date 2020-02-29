@@ -19,7 +19,8 @@ Page({
     time: util.formatDateTime(new Date()),
     offset: 0,
     recruitName: "",
-    createButtonExpand: false
+    createButtonExpand: false,
+    filterHide: true
   },
 
   /**
@@ -360,6 +361,12 @@ Page({
       fail: function(res) {
         console.log("fail");
       }
+    })
+  },
+
+  toggleFilter: function() {
+    this.setData({
+      filterHide: !this.data.filterHide
     })
   },
 

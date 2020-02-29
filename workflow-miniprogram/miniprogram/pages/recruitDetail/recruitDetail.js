@@ -14,20 +14,20 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url : getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId'),
+      url: getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId'),
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
-      success: function(res){
+      success: function (res) {
         console.log(res.data.data);
         that.setData({
-           recruit: res.data.data
+          recruit: res.data.data
         })
       },
-      fail: function(res){
+      fail: function (res) {
         console.log("fail!");
       }
     })
@@ -82,22 +82,22 @@ Page({
 
   },
 
-  applyRecruit: function(){
+  applyRecruit: function () {
     wx.request({
-      url : getApp().globalData.baseURL + '/user/myself',
+      url: getApp().globalData.baseURL + '/user/myself',
       method: 'GET',
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+        ...(getApp().globalData.globalHeaders),
+        'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
       success: function (res) {
         wx.request({
-          url : getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId') + '/appliedUser/' + res.data.data,
+          url: getApp().globalData.baseURL + '/recruit/' + wx.getStorageSync('recruitId') + '/appliedUser/' + res.data.data,
           method: 'PUT',
           header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
+            ...(getApp().globalData.globalHeaders),
+            'content-type': 'application/json',
             'openid': wx.getStorageSync('openid')
           },
           success: function (res) {
@@ -105,7 +105,7 @@ Page({
               title: '应聘成功！',
               icon: 'success'
             })
-            setTimeout(()=>{
+            setTimeout(() => {
               wx.switchTab({
                 url: '/pages/recruit/recruit'
               })
@@ -119,7 +119,7 @@ Page({
           }
         })
       },
-      fail: function(res){
+      fail: function (res) {
         console.log("get selfId fail!");
       }
     })
