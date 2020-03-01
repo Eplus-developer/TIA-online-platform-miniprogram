@@ -49,8 +49,8 @@
           </view>
 
           <view class='page' hidden="{{hasFocusMatch == 0}}">
-            <block wx:for="{{focusMatchs}}" wx:key="id">
-              <navigator url='/pages/matchDetail/matchDetail' class='match-item' id='{{item.activityId}}' bindtap='matchClick'>
+            <block wx:for="{{focusMatches}}" wx:key="id">
+              <navigator url='/pages/matchDetail/matchDetail?id={{item.id}}' class='match-item' id='{{item.id}}' bindtap='matchClick'>
                 <!-- todo -->
                 <view class='match-img-out'>
                   <image wx:if="{{ item.activityId == 1}}" class='match-img' src='https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m1.jpg'></image>
@@ -58,7 +58,7 @@
                 </view>
                 <view class='texts'>
                   <view class='text-title'>
-                    {{item.activityName}}
+                    {{item.name}}
                   </view>
                   <view class='match-text'>
                     <image class='match-mini-img' src='/image/match.png'></image>
@@ -67,7 +67,7 @@
                     </view>
                   </view>
                   <view class='text-time'>
-                    {{item.activityTime}}截止
+                    {{item.endTime}}截止
                   </view>
                 </view>
               </navigator>

@@ -1,5 +1,5 @@
 // pages/myFocus/myFocus.js
-var util = require('../../utils/util.js')
+import util from '../../utils/util'
 Page({
   /**
    * 页面的初始数据
@@ -35,7 +35,7 @@ Page({
       }
     ],
 
-    focusMatchs: [
+    focusMatches: [
       {
         id: 1,
         img: 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m1.jpg',
@@ -49,7 +49,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: async function(options) {
     var that = this
     wx.getSystemInfo({
       success: function(res) {
@@ -64,118 +64,6 @@ Page({
       }
     })
 
-    //同学
-    wx.request({
-      url: getApp().globalData.baseURL + '/user/myself',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        wx.request({
-          url:
-            getApp().globalData.baseURL +
-            '/user/' +
-            res.data.data +
-            '/followingUser',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res2) {
-            console.log(res2.data.data)
-            that.setData({
-              focusPerson: res2.data.data
-            })
-            if (that.data.focusPerson.length == 0) {
-              that.setData({
-                hasFocusPerson: 0
-              })
-            } else {
-              that.setData({
-                hasFocusPerson: 1
-              })
-            }
-          },
-          fail: function(res2) {
-            console.log('fail!')
-          }
-        })
-
-        //比赛
-        wx.request({
-          url:
-            getApp().globalData.baseURL +
-            '/user/' +
-            res.data.data +
-            '/followedActivity',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res2) {
-            console.log(res2.data.data)
-            // 时间格式化
-            for (let i = 0; i < res2.data.data.length; i++) {
-              res2.data.data[i].activitySignUpDeadline = util.formatTime(
-                new Date(res2.data.data[i].activitySignUpDeadline)
-              )
-              res2.data.data[i].activityTime = util.formatTime(
-                new Date(res2.data.data[i].activityTime)
-              )
-            }
-
-            that.setData({
-              focusMatchs: res2.data.data,
-              hasFocusMatch: res2.data.data.length
-            })
-          },
-          fail: function(res2) {
-            console.log('fail!')
-          }
-        })
-
-        //招聘
-        wx.request({
-          url:
-            getApp().globalData.baseURL +
-            '/user/' +
-            res.data.data +
-            '/followedRecruit',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res2) {
-            console.log(res2.data.data)
-
-            //todo
-            //mock image
-            for (var i = 0; i < res2.data.data.length; i++) {
-              res2.data.data[i].image =
-                'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a' +
-                res2.data.data[i].organizer.userId +
-                '.jpg'
-            }
-            that.setData({
-              focusRecruits: res2.data.data,
-              hasFocusRecruit: res2.data.data.length
-            })
-          },
-          fail: function(res2) {
-            console.log('fail!')
-          }
-        })
-      }
-    })
   },
 
   /**
@@ -186,7 +74,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    this.refresh()
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -240,7 +130,7 @@ Page({
     }, 500)
   },
 
-  changeFocus: function(e) {
+  changeFocus: async function(e) {
     var that = this
     wx.request({
       url:
@@ -267,6 +157,36 @@ Page({
         })
       }
     })
-    this.onLoad()
+    this.refresh()
+  },
+
+  async refresh() {
+    try {
+      let code = await util.request('/user/myself', 'GET')
+      let res = await util.request(`/user/${code}/followingUser`, 'GET')
+      console.log(res)
+      let res2 = await util.request(`/user/${code}/followedActivity`, 'GET')
+      console.log(res2)
+      for (let item of res2) {
+        item.activitySignUpDeadline = util.formatTime(
+          new Date(item.activitySignUpDeadline)
+        )
+        item.activityTime = util.formatTime(
+          new Date(item.activityTime)
+        )
+      }
+      let res3 = await util.request(`/user/${code}/followedRecruit`, 'GET')
+      console.log(res3)
+      this.setData({
+        focusPerson: res,
+        hasFocusPerson: res.length,
+        focusMatches: res2,
+        hasFocusMatch: res2.length,
+        focusRecruits: res3,
+        hasFocusRecruit: res3.length
+      })
+    } catch (e) {
+      console.log('获取失败')
+    }
   }
 })

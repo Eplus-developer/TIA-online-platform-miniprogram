@@ -37,7 +37,7 @@
         <textarea disabled='true'>{{match.description}}</textarea>
       </view>
     </view>
-    <view class='in-btn' catchtap='changeFocus'>感 兴 趣</view>
+    <view class='in-btn' catchtap='changeFocus'>{{match.followed ? '取消收藏' : '感兴趣'}}</view>
   </view>
   <view class='big-tia-btn' catchtap='createRecruit'>
     发布招聘
