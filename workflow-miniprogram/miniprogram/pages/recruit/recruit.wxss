@@ -274,6 +274,7 @@ input {
   padding: 1em 5% 0 5%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   z-index: 100;
+  display: flex;
 }
 
 .hide {
@@ -284,4 +285,41 @@ input {
 
 .up {
   text-align: center;
+}
+
+.first-line {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.second-line{
+  display: flex;
+}
+
+.button-unselected{
+  /* background: green; */
+  width: 80px;
+  font-size: 35rpx;
+  color: rgb(121, 121, 121);  
+  border-color: rgb(121, 121, 121);
+  text-align: center;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.button-selected{  
+  /* background: red; */
+  width: 80px;
+  font-size: 35rpx;
+  text-align: center;
+  color: white;
+  background-color: #04BE02;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
 }

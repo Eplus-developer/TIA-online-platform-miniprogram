@@ -63,5 +63,8 @@ export const checkStuId = (e) => {
 module.exports = {
   formatTime: formatTime,
   formatDateTime: formatDateTime,
-  request: request
+  request: request,
+  checkPhone: checkPhone,
+  checkEmail: checkEmail,
+  checkStuId: checkStuId,
 }
