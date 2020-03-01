@@ -72,5 +72,8 @@
       "provider": "wx92c68dae5a8bb046"
     }
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "empty-area": "/components/empty-area/empty-area"
+  }
 }

@@ -1,5 +1,6 @@
 // pages/recruit/recruit.js
-var util = require('../../utils/util.js');
+import util from '../../utils/util'
+
 Page({
 
   /**
@@ -17,7 +18,10 @@ Page({
       focus: 0,
     }],
     time: util.formatDateTime(new Date()),
+    // not referenced from recruit.wxml
     offset: 0,
+    // whether there are some recruitment in the page
+    hasRecruit: 0,
     recruitName: "",
     createButtonExpand: false,
     filterHide: true
@@ -26,187 +30,71 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    console.log(this.data.time);
-    var that = this;
-    wx.request({
-      url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&pageNum=0',
-      method: 'GET',
-      header: {
-        ...(getApp().globalData.globalHeaders),
-        'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data);
+  onLoad: async function (options) {
 
-        //mock image
-        for (var i = 0; i < res.data.data.length; i++) {
-          res.data.data[i].image = 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a' + res.data.data[i].organizer.userId + '.jpg'
-        }
-        that.setData({
-          list: res.data.data,
-          offset: 1
-        })
-        if (that.data.list.length != 0) {
-          that.setData({
-            hasRecruit: 1
-          })
-        } else {
-          that.setData({
-            hasRecruit: 0,
-            offset: 0
-          })
-        }
-      },
-      fail: function(res) {
-        console.log("fail");
-      }
-    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    console.log('on show')
-    var that = this
-    that.setData({
+  onShow: function () {
+    this.setData({
       createButtonExpand: false
     });
-    that.refreshRecruit();
+    this.refreshRecruit();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-    var that = this;
-    var nowTime = util.formatDateTime(new Date());
-    console.log("fresh! Time: " + that.data.time);
-    wx.request({
-      url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
-      method: 'GET',
-      header: {
-        ...(getApp().globalData.globalHeaders),
-        'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data);
-
-        //todo
-        //mock image
-        for (var i = 0; i < res.data.data.length; i++) {
-          res.data.data[i].image = 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a' + res.data.data[i].organizer.userId + '.jpg'
-        }
-
-        that.setData({
-          list: res.data.data,
-          time: nowTime,
-          offset: 1
-        })
-        if (that.data.list.length != 0) {
-          that.setData({
-            hasRecruit: 1
-          })
-        } else {
-          that.setData({
-            hasRecruit: 0,
-            offset: 0
-          })
-        }
-      },
-      fail: function(res) {
-        console.log("fail");
-      }
-    })
+  onPullDownRefresh: function () {
+    this.refreshRecruit()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: async function () {
     console.log("reach bottom! Time: " + this.data.time + ". offset: " + this.data.offset);
-    var that = this;
-    if (that.data.recruitName == "") {
-      wx.request({
-        url: getApp().globalData.baseURL + '/recruit/all?' + that.data.recruitName + 'currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
-        method: 'GET',
-        header: {
-          ...(getApp().globalData.globalHeaders),
-          'content-type': 'application/json',
-          'openid': wx.getStorageSync('openid')
-        },
-        success: function(res) {
-          console.log(res.data.data);
-
-          //todo
-          //mock image
-          for (var i = 0; i < res.data.data.length; i++) {
-            res.data.data[i].image = 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a' + res.data.data[i].organizer.userId + '.jpg'
-          }
-          that.setData({
-            list: that.data.list.concat(res.data.data),
-            offset: that.data.offset + 1
-          })
-        },
-        fail: function(res) {
-          console.log("fail");
-        }
-      })
-    } else {
-      wx.request({
-        url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + that.data.time + '&&pageNum=' + that.data.offset,
-        method: 'GET',
-        header: {
-          ...(getApp().globalData.globalHeaders),
-          'content-type': 'application/json',
-          'openid': wx.getStorageSync('openid')
-        },
-        success: function(res) {
-          console.log(res.data.data);
-          that.setData({
-            list: that.data.list.concat(res.data.data),
-            offset: that.data.offset + 1
-          })
-        },
-        fail: function(res) {
-          console.log("fail");
-        }
-      })
-    }
+    let url = '/recruit/all?currentTime=' + this.data.time + '&pageNum=' + this.data.offset;
+    if (this.data.recruitName !== "") url += `&recruitName=${this.data.recruitName}`
+    let res = await util.request(url, 'GET')
+    if (res.length === 0) return;
+    this.setData({
+      list: this.data.list.concat(res),
+      offset: this.data.offset + 1
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
-  toDetail: function(e) {
+  toDetail: function (e) {
     wx.setStorageSync('recruitId', e.currentTarget.id);
     setTimeout(() => {
       wx.navigateTo({
@@ -215,59 +103,25 @@ Page({
     }, 500)
   },
 
-  changeFocus: function(e) {
-    var that = this;
-    if (e.currentTarget.dataset.id.followed == true) {
-      wx.request({
-        url: getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
-        method: 'delete',
-        header: {
-          ...(getApp().globalData.globalHeaders),
-          'content-type': 'application/json',
-          'openid': wx.getStorageSync('openid')
-        },
-        success: function(res) {
-          wx.showToast({
-            title: '取消收藏',
-            icon: 'success'
-          })
-          that.refreshRecruit();
-        },
-        fail: function(res) {
-          wx.showToast({
-            title: '操作失败',
-            icon: 'success'
-          })
-        }
+  changeFocus: async function (e) {
+    let method = e.currentTarget.dataset.id.followed === true ? 'DELETE' : 'PUT'
+    let title = e.currentTarget.dataset.id.followed === true ? '取消收藏' : '收藏成功'
+    try {
+      await util.request('/user/recruit/' + e.currentTarget.dataset.id.recruitId, method)
+      wx.showToast({
+        title: title,
+        icon: 'success'
       })
-    } else {
-      wx.request({
-        url: getApp().globalData.baseURL + '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
-        method: 'put',
-        header: {
-          ...(getApp().globalData.globalHeaders),
-          'content-type': 'application/json',
-          'openid': wx.getStorageSync('openid')
-        },
-        success: function(res) {
-          wx.showToast({
-            title: '收藏成功',
-            icon: 'success'
-          })
-          that.refreshRecruit();
-        },
-        fail: function(res) {
-          wx.showToast({
-            title: '操作失败',
-            icon: 'success'
-          })
-        }
+    } catch (e) {
+      wx.showToast({
+        title: '操作失败',
+        icon: 'success'
       })
     }
     this.refreshRecruit();
   },
 
-  toOthersInfo: function(e) {
+  toOthersInfo: function (e) {
     wx.setStorageSync('userId', e.currentTarget.dataset.id);
     console.log(wx.getStorageSync('userId'));
     wx.navigateTo({
@@ -276,7 +130,7 @@ Page({
   },
 
   // deleteRecruit: function(e) {
-  //   var that = this;
+  //   let that = this;
   //   wx.showModal({
   //     title: '是否确认删除？',
   //     showCancel: true,
@@ -317,124 +171,66 @@ Page({
   //   })
   // },
 
-  getRecruitName: function(e) {
+  getRecruitName: function (e) {
     console.log(e.detail.value);
     this.setData({
       recruitName: e.detail.value
     })
   },
 
-  screen: function(e) {
-    var that = this;
-    wx.request({
-      url: getApp().globalData.baseURL + '/recruit/all?recruitName=' + that.data.recruitName + '&currentTime=' + that.data.time + '&pageNum=0',
-      method: 'GET',
-      header: {
-        ...(getApp().globalData.globalHeaders),
-        'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data);
-
-        //todo
-        //mock image
-        for (var i = 0; i < res.data.data.length; i++) {
-          res.data.data[i].image = 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a' + res.data.data[i].organizer.userId + '.jpg'
-        }
-
-        that.setData({
-          list: res.data.data,
-          offset: 1
-        })
-        if (that.data.list.length != 0) {
-          that.setData({
-            hasRecruit: 1
-          })
-        } else {
-          that.setData({
-            hasRecruit: 0,
-            offset: 0
-          })
-        }
-      },
-      fail: function(res) {
-        console.log("fail");
-      }
-    })
+  screen: async function (e) {
+    try {
+      let res = await util.request('/recruit/all?recruitName=' + this.data.recruitName + '&currentTime=' + util.formatDateTime(new Date()) + '&pageNum=0', 'GET')
+      if (res.length !== 0) this.setData({
+        offset: 1,
+        hasRecruit: 1
+      })
+    } catch (e) {
+      wx.showToast({
+        title: '搜索失败'
+      })
+    }
   },
 
-  toggleFilter: function() {
+  toggleFilter: function () {
     this.setData({
       filterHide: !this.data.filterHide
     })
   },
 
-  createRecruit: function(e) {
+  createRecruit: async function (e) {
     // 判断是否已经有团队
-    wx.request({
-      url: getApp().globalData.baseURL + '/team/joinedTeam',
-      method: 'get',
-      header: {
-        ...(getApp().globalData.globalHeaders),
-        'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        if (res.data.data.length == 0) {
-          wx.navigateTo({
-            url: '/pages/createTeam/createTeam',
-          })
-        } else {
-          wx.navigateTo({
-            url: '/pages/createRecruit/createRecruit',
-          })
-        }
-      },
-      fail: function(res) {
-        console.log("fail");
-      }
+    let res = await util.request('/team/joinedTeam', 'GET')
+    if (res.length === 0)
+      wx.navigateTo({
+        url: '/pages/createTeam/createTeam',
+      })
+    else
+      wx.navigateTo({
+        url: '/pages/createRecruit/createRecruit',
+      })
+  },
+
+  expand: function () {
+    this.setData({
+      createButtonExpand: !this.data.createButtonExpand
     })
   },
 
-  expand: function() {
-    var that = this
-    that.setData({
-      createButtonExpand: !that.data.createButtonExpand
-    })
-    console.log(that.data.createButtonExpand)
-  },
-
-  refreshRecruit: function() {
-    var that = this
-    var nowTime = util.formatDateTime(new Date());
-    wx.request({
-      url: getApp().globalData.baseURL + '/recruit/all?currentTime=' + nowTime + '&&pageNum=0',
-      method: 'GET',
-      header: {
-        ...(getApp().globalData.globalHeaders),
-        'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        that.setData({
-          list: res.data.data,
-          offset: 1
-        })
-        if (that.data.list.length != 0) {
-          that.setData({
-            hasRecruit: 1
-          })
-        } else {
-          that.setData({
-            hasRecruit: 0,
-            offset: 0
-          })
-        }
-      },
-      fail: function() {
-        console.error('Get recruitment failed.');
-      }
-    })
+  refreshRecruit: async function () {
+    let nowTime = util.formatDateTime(new Date());
+    try {
+      let res = await util.request('/recruit/all?currentTime=' + nowTime + '&pageNum=0', 'GET')
+      console.log(res)
+      this.setData({
+        list: res
+      })
+      if (res.length !== 0) this.setData({
+        offset: 1,
+        hasRecruit: 1
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 })

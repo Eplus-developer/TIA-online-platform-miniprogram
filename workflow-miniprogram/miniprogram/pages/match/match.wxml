@@ -23,12 +23,7 @@
 
       <!-- tab1 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-        <view class='page' hidden="{{hasMatch != 0}}">
-          <view class='none'>
-            <image src='/image/meh.png' class='none-img'></image>
-            <view class='none-text'>近期没有比赛哦</view>
-          </view>
-        </view>
+        <empty-area hidden="{{hasMatch != 0}}">近期没有比赛哦</empty-area>
 
         <view class='page' hidden="{{hasMatch == 0}}">
           <block wx:for="{{matchs}}" wx:key="id">

@@ -19,7 +19,7 @@ const formatDateTime = date => {
   const second = date.getSeconds()
 
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
- 
+
 }
 
 const formatNumber = n => {
@@ -27,7 +27,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const fetchUtil = (url, method, data, headers={}) => {
+const request = (url, method, data, headers={}) => {
   return new Promise((resolve, reject) => {
     wx.request({
       url: getApp().globalData.baseURL + url,
@@ -39,7 +39,10 @@ const fetchUtil = (url, method, data, headers={}) => {
         'content-type': 'application/json',
         'openid': wx.getStorageSync('openid')
       },
-      success: (res) => resolve(res),
+      success: (res) => {
+        if (res.statusCode === 200) resolve(res.data.data)
+        else reject(res)
+      },
       fail: (err) => reject(err)
     })
   })
@@ -60,4 +63,5 @@ export const checkStuId = (e) => {
 module.exports = {
   formatTime: formatTime,
   formatDateTime: formatDateTime,
+  request: request
 }

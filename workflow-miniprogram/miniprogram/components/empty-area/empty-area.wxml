@@ -1,0 +1,7 @@
+<!--components/empty-area/empty-area.wxml-->
+<view class='page'>
+  <view class='none'>
+    <image src='/image/meh.png' class='none-img'></image>
+    <view class='none-text'><slot></slot></view>
+  </view>
+</view>
