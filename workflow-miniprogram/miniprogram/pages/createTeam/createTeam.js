@@ -1,97 +1,79 @@
 // pages/createTeam/createTeam.js
 Page({
-
   /**
    * Page initial data
    */
-  data: {
-  },
+  data: {},
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
-
-  },
+  onLoad: function(options) {},
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
-  onReady: function () {
-
-  },
+  onReady: function() {},
 
   /**
    * Lifecycle function--Called when page show
    */
-  onShow: function () {
-
-  },
+  onShow: function() {},
 
   /**
    * Lifecycle function--Called when page hide
    */
-  onHide: function () {
-
-  },
+  onHide: function() {},
 
   /**
    * Lifecycle function--Called when page unload
    */
-  onUnload: function () {
-
-  },
+  onUnload: function() {},
 
   /**
    * Page event handler function--Called when user drop down
    */
-  onPullDownRefresh: function () {
-
-  },
+  onPullDownRefresh: function() {},
 
   /**
    * Called when page reach bottom
    */
-  onReachBottom: function () {
-
-  },
+  onReachBottom: function() {},
 
   /**
    * Called when user click on the top right corner to share
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {},
 
+  getTeamName: function(e) {
+    console.log(e.detail.value)
+    wx.setStorageSync('teamName', e.detail.value)
   },
 
-  getTeamName: function(e){
-    console.log(e.detail.value);
-    wx.setStorageSync('teamName', e.detail.value);
-  },
-
-  createTeam: function(){
-    var that = this;
+  createTeam: function() {
+    var that = this
     wx.request({
-      url : getApp().globalData.baseURL + '/team',
+      url: getApp().globalData.baseURL + '/team',
       method: 'POST',
       data: {
         teamName: wx.getStorageSync('teamName')
       },
       header: {
-      ...(getApp().globalData.globalHeaders),
-      'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
+        ...getApp().globalData.globalHeaders,
+        'content-type': 'application/json',
+        openid: wx.getStorageSync('openid')
       },
-      success: function (res) {
+      success: function(res) {
         wx.showToast({
           title: '创建成功！',
           icon: 'success'
         })
         wx.navigateTo({
-          url: '/pages/createRecruit/createRecruit',
+          url: '/pages/createRecruit/createRecruit'
         })
       },
-      fail: function (res) {
-        console.log("create team fail!");
+      fail: function(res) {
+        console.log('create team fail!')
       }
     })
   }

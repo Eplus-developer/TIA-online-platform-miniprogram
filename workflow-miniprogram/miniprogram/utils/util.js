@@ -9,7 +9,6 @@ const formatTime = date => {
   return year + '年' + month + '月' + day + '日'
 }
 
-
 const formatDateTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -18,8 +17,11 @@ const formatDateTime = date => {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-
+  return (
+    [year, month, day].map(formatNumber).join('-') +
+    ' ' +
+    [hour, minute, second].map(formatNumber).join(':')
+  )
 }
 
 const formatNumber = n => {
@@ -27,7 +29,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const request = (url, method, data, headers={}) => {
+const request = (url, method, data, headers = {}) => {
   return new Promise((resolve, reject) => {
     wx.request({
       url: getApp().globalData.baseURL + url,
@@ -35,28 +37,28 @@ const request = (url, method, data, headers={}) => {
       data: data,
       header: {
         ...headers,
-        ...(getApp().globalData.globalHeaders),
+        ...getApp().globalData.globalHeaders,
         'content-type': 'application/json',
-        'openid': wx.getStorageSync('openid')
+        openid: wx.getStorageSync('openid')
       },
-      success: (res) => {
+      success: res => {
         if (res.statusCode === 200) resolve(res.data.data)
         else reject(res)
       },
-      fail: (err) => reject(err)
+      fail: err => reject(err)
     })
   })
 }
 
-export const checkPhone = (p) => {
+export const checkPhone = p => {
   return /^1[3456789]\d{9}$/.test(p)
 }
 
-export const checkEmail = (e) => {
+export const checkEmail = e => {
   return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(e)
 }
 
-export const checkStuId = (e) => {
+export const checkStuId = e => {
   return /\d{11}/.test(e)
 }
 
@@ -66,5 +68,5 @@ module.exports = {
   request: request,
   checkPhone: checkPhone,
   checkEmail: checkEmail,
-  checkStuId: checkStuId,
+  checkStuId: checkStuId
 }

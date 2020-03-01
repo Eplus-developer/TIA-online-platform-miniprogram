@@ -1,17 +1,17 @@
-import * as echarts from '../../ec-canvas/echarts';
+import * as echarts from '../../ec-canvas/echarts'
 
-const app = getApp();
+const app = getApp()
 
 function initChart(canvas, width, height) {
   const chart = echarts.init(canvas, null, {
     width: width,
     height: height
-  });
-  canvas.setChart(chart);
+  })
+  canvas.setChart(chart)
 
   var option = {
-    backgroundColor: "#ffffff",
-    color: ["#4a69bd"],
+    backgroundColor: '#ffffff',
+    color: ['#4a69bd'],
     tooltip: {},
     xAxis: {
       show: false
@@ -21,12 +21,13 @@ function initChart(canvas, width, height) {
     },
     radar: {
       // shape: 'circle',
-      name:{
-        textStyle:{
-          color: '#4a69bd',
-        },
+      name: {
+        textStyle: {
+          color: '#4a69bd'
+        }
       },
-      indicator: [{
+      indicator: [
+        {
           name: '前端',
           max: 10
         },
@@ -51,23 +52,27 @@ function initChart(canvas, width, height) {
           max: 10
         },
         {
-          name:'数据',
+          name: '数据',
           max: 10
         }
       ]
     },
-    series: [{
-      name: '具体数值',
-      type: 'radar',
-      data: [{
-        value: [6, 8, 7, 9, 5, 6, 10],
-        name: '数值'
-      }]
-    }]
-  };
+    series: [
+      {
+        name: '具体数值',
+        type: 'radar',
+        data: [
+          {
+            value: [6, 8, 7, 9, 5, 6, 10],
+            name: '数值'
+          }
+        ]
+      }
+    ]
+  }
 
-  chart.setOption(option);
-  return chart;
+  chart.setOption(option)
+  return chart
 }
 
 Page({
@@ -78,4 +83,4 @@ Page({
   },
 
   onReady() {}
-});
+})

@@ -9,9 +9,9 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         //获取凭证
-        var code = res.code;
+        var code = res.code
         if (code) {
-          console.log("获取用户登录凭证：" + code);
+          console.log('获取用户登录凭证：' + code)
 
           wx.request({
             url: getApp().globalData.baseURL + '/wxLogin',
@@ -20,23 +20,23 @@ App({
             },
             method: 'GET',
             header: {
-              ...(getApp().globalData.globalHeaders),
-              'content-type': 'application/json',
+              ...getApp().globalData.globalHeaders,
+              'content-type': 'application/json'
             },
-            success: function (res) {
+            success: function(res) {
               if (res.statusCode == 200) {
-                console.log("get openid success!");
-                wx.setStorageSync('openid', res.data.data);
+                console.log('get openid success!')
+                wx.setStorageSync('openid', res.data.data)
               } else {
-                console.log("get openid fail!");
+                console.log('get openid fail!')
               }
             },
-            fail: function (res) {
-              console.log("fail!");
+            fail: function(res) {
+              console.log('fail!')
             }
           })
         } else {
-          console.log("fail! " + res.errMsg);
+          console.log('fail! ' + res.errMsg)
         }
       }
     })
