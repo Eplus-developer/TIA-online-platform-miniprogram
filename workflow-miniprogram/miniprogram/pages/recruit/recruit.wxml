@@ -1,10 +1,22 @@
 <view class="page">
-  <view class="hidden-panel {{filterHide ? 'hide' : ''}}">
-    <view>title</view>
-    <view>title</view>
-    <view>title</view>
-    <view>title</view>
-    <view>title</view>
+  <view class="hidden-panel {{filterHide ? 'hide' : ''}}" style="flex-direction:column">
+    <view class="first-line" style="flex-direction:row">
+      <view class="button-unselected">所有</view>
+      <view class="button-selected">Java</view>
+      <view class="button-unselected">C#</view>
+      <view class="button-unselected">C/C++</view>
+    </view>
+    <view class="second-line" style="flex-direction:row">
+      <view class="button-unselected">Python</view>
+      <view class="button-unselected">前端</view>
+      <view class="button-unselected">美工</view>
+      <view class="button-unselected">其他</view>   
+    </view>    
+    
+    
+    
+
+
     <view class="up" bindtap="toggleFilter">^</view>
   </view>
   <view class='top-bd'>
