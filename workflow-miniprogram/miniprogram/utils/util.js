@@ -60,4 +60,7 @@ export const checkStuId = (e) => {
 module.exports = {
   formatTime: formatTime,
   formatDateTime: formatDateTime,
+  checkPhone: checkPhone,
+  checkEmail: checkEmail,
+  checkStuId: checkStuId,
 }
