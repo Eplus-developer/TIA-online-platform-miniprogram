@@ -50,24 +50,6 @@
   padding: 10rpx 40rpx;
 }
 
-.tia-btn {
-  position: fixed;
-  width: 20%;
-  left: 40%;
-  right: 40%;
-  bottom: 1.5%;
-  z-index: 1000;
-  padding: 15rpx;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: white;
-  transition: 0.3s;
-  border-radius: 5px;
-  color: #4a69bd;
-  font-size: 30rpx;
-  text-align: center;
-  font-weight: bold;
-}
-
 .placeholder {
   margin: 5px;
   /* padding: 0 10px; */

@@ -1,5 +1,8 @@
 // components/empty-area/empty-area.js
 Component({
+  options: {
+    multipleSlots: true
+  },
   /**
    * 组件的属性列表
    */

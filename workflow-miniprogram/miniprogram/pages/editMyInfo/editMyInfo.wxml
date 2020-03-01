@@ -74,7 +74,7 @@
       </view>
     </view>
 
-    <view class='tia-btn'>
+    <view class='big-tia-btn'>
       <button form-type='submit'>提交修改</button>
     </view>
   </form>

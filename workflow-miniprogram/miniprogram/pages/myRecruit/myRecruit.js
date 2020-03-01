@@ -1,4 +1,6 @@
 // pages/myRecruit/myRecruit.js
+import util from '../../utils/util'
+
 Page({
   /**
    * 页面的初始数据
@@ -18,7 +20,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: async function(options) {
     var that = this
     wx.getSystemInfo({
       success: function(res) {
@@ -33,47 +35,7 @@ Page({
       }
     })
 
-    // 我的申请
-    wx.request({
-      url: getApp().globalData.baseURL + '/recruit/appliedRecruit',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data)
-        that.setData({
-          applyList: res.data.data,
-          hasApply: res.data.data.length
-        })
-      },
-      fail: function(res) {
-        console.log('fail!')
-      }
-    })
-
-    // 待处理的提交的申请
-    wx.request({
-      url: getApp().globalData.baseURL + '/recruit/myAppliedUsers',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data)
-        that.setData({
-          othersApplyList: res.data.data,
-          hasOthersApply: res.data.data.length
-        })
-      },
-      fail: function(res) {
-        console.log('fail!')
-      }
-    })
+    this.refresh()
   },
 
   /**
@@ -134,90 +96,45 @@ Page({
     })
   },
 
-  acceptApply: function(e) {
-    var that = this
-    wx.request({
-      url:
-        getApp().globalData.baseURL +
-        '/recruit/' +
+  acceptApply: async function(e) {
+    try {
+      let res = await util.request('/recruit/' +
         e.currentTarget.dataset.recruitId +
         '/user/' +
-        e.currentTarget.dataset.userId,
-      method: 'PUT',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        wx.showToast({
-          title: '已同意',
-          icon: 'success'
-        })
-        that.onLoad()
-      },
-      fail: function(res) {
-        console.log('accept fail!')
-      }
-    })
-  },
-
-  changeFocus: function(e) {
-    var that = this
-    if (e.currentTarget.dataset.id.followed == true) {
-      wx.request({
-        url:
-          getApp().globalData.baseURL +
-          '/user/recruit/' +
-          e.currentTarget.dataset.id.recruitId,
-        method: 'delete',
-        header: {
-          ...getApp().globalData.globalHeaders,
-          'content-type': 'application/json',
-          openid: wx.getStorageSync('openid')
-        },
-        success: function(res) {
-          wx.showToast({
-            title: '取消收藏',
-            icon: 'success'
-          })
-          that.onLoad()
-        },
-        fail: function(res) {
-          wx.showToast({
-            title: '操作失败',
-            icon: 'success'
-          })
-        }
+        e.currentTarget.dataset.userId, 'PUT')
+      wx.showToast({
+        title: '已同意',
+        icon: 'success'
       })
-    } else {
-      wx.request({
-        url:
-          getApp().globalData.baseURL +
-          '/user/recruit/' +
-          e.currentTarget.dataset.id.recruitId,
-        method: 'put',
-        header: {
-          ...getApp().globalData.globalHeaders,
-          'content-type': 'application/json',
-          openid: wx.getStorageSync('openid')
-        },
-        success: function(res) {
-          wx.showToast({
-            title: '收藏成功',
-            icon: 'success'
-          })
-          that.onLoad()
-        },
-        fail: function(res) {
-          wx.showToast({
-            title: '操作失败',
-            icon: 'success'
-          })
-        }
+      this.onLoad()
+    } catch (e) {
+      wx.showModal({
+        title: '失败',
+        showCancel: false
       })
     }
-    this.onLoad()
+  },
+
+  changeFocus: async function(e) {
+    let method = e.currentTarget.dataset.id.followed === true ? 'DELETE' : 'PUT'
+    let title =
+      e.currentTarget.dataset.id.followed === true ? '取消收藏' : '收藏成功'
+    try {
+      await util.request(
+        '/user/recruit/' + e.currentTarget.dataset.id.recruitId,
+        method
+      )
+      wx.showToast({
+        title: title,
+        icon: 'success'
+      })
+    } catch (e) {
+      wx.showToast({
+        title: '操作失败',
+        icon: 'success'
+      })
+    }
+    this.refresh()
   },
 
   cancelAppliedRecruit: function(e) {
@@ -277,5 +194,31 @@ Page({
         })
       }
     })
+  },
+
+  async refresh() {
+    // 我的申请
+    try {
+      let recruitment = await util.request('/recruit/appliedRecruit', 'GET')
+      console.log(recruitment)
+      this.setData({
+        applyList: recruitment,
+        hasApply: recruitment.length
+      })
+    } catch (e) {
+      console.log('获取失败')
+    }
+
+    // 待处理的提交的申请
+    try {
+      let application = await util.request('/recruit/myAppliedUsers', 'GET')
+      console.log(application)
+      this.setData({
+        othersApplyList: application,
+        hasOthersApply: application.length
+      })
+    } catch (e) {
+      console.log('获取失败')
+    }
   }
 })

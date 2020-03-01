@@ -4,3 +4,4 @@ workflow-miniprogram/miniprogram/app.json
 workflow-miniprogram/miniprogram/sitemap*.json
 workflow-miniprogram/miniprogram/node_modules
 .idea
+./**/*.map

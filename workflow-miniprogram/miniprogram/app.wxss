@@ -11,13 +11,46 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
 
 .btn{
   margin: 20px;
-  background-color:rgb(116, 185, 255); 
+  background-color:rgb(116, 185, 255);
   color: #fff;
 }
-page{
+
+page {
   background-color: #F8F8F8;
+}
+
+.tia-btn {
+  position: fixed;
+  width: 20%;
+  left: 40%;
+  right: 40%;
+  bottom: 1.5%;
+  z-index: 1000;
+  padding: 15rpx;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 5px;
+  color: #4a69bd;
+  font-size: 30rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
+.big-tia-btn {
+  width: 50%;
+  margin: 50rpx auto;
+  padding: 15rpx;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 20rpx;
+  color: #4a69bd;
+  font-size: 50rpx;
+  font-weight: bold;
+  text-align: center;
 }

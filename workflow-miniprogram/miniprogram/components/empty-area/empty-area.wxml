@@ -3,5 +3,6 @@
   <view class='none'>
     <image src='/image/meh.png' class='none-img'></image>
     <view class='none-text'><slot></slot></view>
+    <slot name="append"></slot>
   </view>
 </view>

@@ -14,13 +14,12 @@
 
         <!-- tab1 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='page' hidden="{{hasApply != 0}}">
-            <view class='none'>
-              <image src='/image/meh.png' class='none-img'></image>
-              <view class='none-text'>你还没有应聘职位哦</view>
+          <empty-area wx:if="{{hasApply === 0}}">
+            <view>你还没有应聘职位哦</view>
+            <view slot="append">
               <navigator class='common-btn' url='/pages/recruit/recruit' open-type='switchTab'>去应聘</navigator>
             </view>
-          </view>
+          </empty-area>
 
           <view class="weui-tab__content" hidden="{{hasApply == 0}}">
             <block wx:for="{{applyList}}" wx:key="id">
@@ -57,12 +56,9 @@
 
         <!-- tab2 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class='page' hidden="{{hasOthersApply != 0}}">
-            <view class='none'>
-              <image src='/image/meh.png' class='none-img'></image>
-              <view class='none-text'>还没有人应聘哦</view>
-            </view>
-          </view>
+          <empty-area wx:if="{{hasOthersApply === 0}}">
+            还没有人应聘哦
+          </empty-area>
 
           <view class='page' hidden="{{hasOthersApply == 0}}">
             <view wx:for="{{othersApplyList}}" wx:key="id">
@@ -83,7 +79,7 @@
         </view>
 
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-        已发布招聘
+          已发布招聘
         </view>
       </view>
     </view>

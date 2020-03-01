@@ -33,7 +33,7 @@
       </view>
       <view class='form-item'>
         <view class='item-title'>所需人数:</view>
-        <input name="personNum" placeholder="请输入所需人数"></input>
+        <input name="personNum" type="number" placeholder="请输入所需人数"></input>
       </view>
       <view class='form-item'>
         <view class='item-title'>简介:</view>
@@ -41,7 +41,7 @@
       </view>
     </view>
 
-    <view class='tia-btn'>
+    <view class='big-tia-btn'>
       <button form-type='submit'>发布招聘</button>
     </view>
   </form>

@@ -116,7 +116,7 @@ Page({
     }
     let code = await util.request('/user/myself', 'GET')
     try {
-      await util.request(
+      let res = await util.request(
         '/recruit/' +
           this.data.matches[e.detail.value.match].id +
           '?' +
@@ -130,6 +130,7 @@ Page({
           recruitWillingNumber: e.detail.value.personNum
         }
       )
+      console.log(res)
       wx.showToast({
         title: '发布成功',
         icon: 'success'

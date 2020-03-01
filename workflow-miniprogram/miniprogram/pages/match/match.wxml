@@ -23,16 +23,16 @@
 
       <!-- tab1 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-        <empty-area hidden="{{hasMatch != 0}}">近期没有比赛哦</empty-area>
+        <empty-area wx:if="{{hasMatch === 0}}">近期没有比赛哦</empty-area>
 
         <view class='page' hidden="{{hasMatch == 0}}">
-          <block wx:for="{{matchs}}" wx:key="id">
-            <navigator url='/pages/matchDetail/matchDetail' class='match-item' bindtap="matchClick" id="{{item.activityId}}">
+          <block wx:for="{{matches}}" wx:key="id">
+            <navigator url='/pages/matchDetail/matchDetail?id={{item.id}}' class='match-item' bindtap="matchClick" id="{{item.id}}">
               <view class='match-img-out'>
                 <image class='match-img' src='{{item.activityUrl}}'></image>
               </view>
               <view class='text-title'>
-                {{item.activityName}}
+                {{item.name}}
               </view>
               <view class='match-text'>
                 <image class='match-mini-img' src='/image/match.png'></image>
@@ -41,7 +41,7 @@
                 </view>
               </view>
               <view class='text-time'>
-                {{item.activityTime}}截止
+                {{item.endTime}}截止
               </view>
               <view class='random' hidden='{{item.activityId % 4 != 2 || item.activityId % 4 != 3}}'></view>
             </navigator>
@@ -51,15 +51,12 @@
 
       <!-- tab2 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-        <view class='page' hidden="{{hasCutoffMatch != 0}}">
-          <view class='none'>
-            <image src='/image/meh.png' class='none-img'></image>
-            <view class='none-text'>没有已截止的比赛哦</view>
-          </view>
-        </view>
+        <empty-area wx:if="{{hasCutoffMatch === 0}}">
+          没有已截止的比赛哦
+        </empty-area>
 
-        <view class='page' hidden="{{hasCutoffMatch == 0}}">
-          <block wx:for="{{cutoffMatchs}}" wx:key="id">
+        <view class='page' hidden="{{hasCutoffMatch === 0}}">
+          <block wx:for="{{cutoffMatches}}" wx:key="id">
             <navigator url='/pages/matchCutoffDetail/matchCutoffDetail' class='match-item' bindtap="matchClick" id="{{item.activityId}}">
               <view class='match-img-out'>
                 <image class='match-img' src='{{item.activityUrl}}'></image>
@@ -96,4 +93,7 @@
       </view>
     </view>
   </view>
+  <navigator class='tia-btn' url='/pages/createMatch/createMatch'>
+    创建比赛
+  </navigator>
 </view>

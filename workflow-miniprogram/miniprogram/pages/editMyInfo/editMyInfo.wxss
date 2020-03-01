@@ -17,7 +17,7 @@
   width: 200rpx;
   border-radius: 50%;
   border: 5rpx solid white;
-  display: flex; 
+  display: flex;
   overflow: hidden;
 }
 
@@ -43,20 +43,6 @@
   align-self: center;
   height: 60rpx;
   width: 60rpx;
-}
-
-.tia-btn {
-  width: 50%;
-  margin: 50rpx auto;
-  padding: 15rpx;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: white;
-  transition: 0.3s;
-  border-radius: 20rpx;
-  color: #4a69bd;
-  font-size: 50rpx;
-  font-weight: bold;
-  text-align: center;
 }
 
 .form-info {

@@ -1,4 +1,5 @@
-var util = require('../../utils/util.js')
+import util from '../../utils/util'
+
 const MONTHS = [
   'Jan.',
   'Feb.',
@@ -28,14 +29,14 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    hasMatch: 1, //是否有近期比赛
-    hasCutoffMatch: 1, //是否有已截至的比赛
+    hasMatch: 0, //是否有近期比赛
+    hasCutoffMatch: 0, //是否有已截至的比赛
     cal_style: [],
     year: new Date().getFullYear(), // 年份
     month: new Date().getMonth() + 1, // 月份
     day: new Date().getDate(),
     str: MONTHS[new Date().getMonth()], // 月份字符串
-    matchs: [
+    matches: [
       {
         id: 1,
         img: 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m1.jpg',
@@ -45,7 +46,7 @@ Page({
       }
     ],
 
-    cutoffMatchs: [
+    cutoffMatches: [
       {
         id: 1,
         img: 'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m5.png',
@@ -136,95 +137,6 @@ Page({
     this.setData({
       cal_style: cal_style
     })
-
-    wx.request({
-      url: getApp().globalData.baseURL + '/activity/all?type=fresh',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        // console.log(res.data.data);
-        // 时间格式化
-        for (let i = 0; i < res.data.data.length; i++) {
-          res.data.data[i].activitySignUpDeadline = util.formatTime(
-            new Date(res.data.data[i].activitySignUpDeadline)
-          )
-          res.data.data[i].activityTime = util.formatTime(
-            new Date(res.data.data[i].activityTime)
-          )
-          // todo
-          // mock image
-          res.data.data[i].activityUrl =
-            'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m' +
-            (res.data.data[i].activityId % 7) +
-            '.jpg'
-        }
-
-        that.setData({
-          matchs: res.data.data
-        })
-        if (that.data.matchs.length == 0) {
-          that.setData({
-            hasMatch: 0
-          })
-        } else {
-          that.setData({
-            hasMatch: 1
-          })
-        }
-      },
-      fail: function(res) {
-        console.log('fail!')
-      }
-    })
-
-    wx.request({
-      url: getApp().globalData.baseURL + '/activity/all?type=finish',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        // 'content-type': 'application/x-www-form-urlencoded',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        // console.log(res.data.data);
-        // 时间格式化
-        for (let i = 0; i < res.data.data.length; i++) {
-          res.data.data[i].activitySignUpDeadline = util.formatTime(
-            new Date(res.data.data[i].activitySignUpDeadline)
-          )
-          res.data.data[i].activityTime = util.formatTime(
-            new Date(res.data.data[i].activityTime)
-          )
-
-          // todo
-          // mock image
-          res.data.data[i].activityUrl =
-            'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m' +
-            ((res.data.data[i].activityId % 5) + 1) +
-            '.jpg'
-        }
-        that.setData({
-          cutoffMatchs: res.data.data
-        })
-        if (that.data.cutoffMatchs.length == 0) {
-          that.setData({
-            hasCutoffMatch: 0
-          })
-        } else {
-          that.setData({
-            hasCotoffMatch: 1
-          })
-        }
-      },
-      fail: function(res) {
-        console.log('fail!')
-      }
-    })
   },
 
   /**
@@ -236,6 +148,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.refreshMatch()
     this.setData({
       activeIndex: 0,
       sliderOffset: 0
@@ -277,5 +190,37 @@ Page({
   matchClick: function(e) {
     // console.log(e.currentTarget.id);
     wx.setStorageSync('matchId', e.currentTarget.id)
+  },
+
+  async refreshMatch() {
+    let res = await util.request('/activity/all?type=fresh', 'GET')
+    for (let item of res) {
+      item.activitySignUpDeadline = util.formatTime(
+        new Date(item.activitySignUpDeadline)
+      )
+      item.activityTime = util.formatTime(
+        new Date(item.activityTime)
+      )
+    }
+    console.log(res)
+    this.setData({
+      matches: res,
+      hasMatch: res.length === 0 ? 0 : 1
+    })
+
+    res = await util.request('/activity/all?type=finish', 'GET')
+    for (let item of res) {
+      item.activitySignUpDeadline = util.formatTime(
+        new Date(item.activitySignUpDeadline)
+      )
+      item.activityTime = util.formatTime(
+        new Date(item.activityTime)
+      )
+    }
+    this.setData({
+      cutoffMatches: res,
+      hasCutoffMatch: res.length === 0 ? 0 : 1
+    })
+    console.log(res)
   }
 })

@@ -14,13 +14,12 @@
 
         <!-- tab1 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='page' hidden="{{hasPostedClass != 0}}">
-            <view class='none'>
-              <image src='/image/meh.png' class='none-img'></image>
-              <view class='none-text'>你还没有发布过课程哦</view>
+          <empty-area wx:if="hasPostedClass === 0">
+            <view>你还没有发布过课程哦</view>
+            <view slot="append">
               <navigator class='common-btn' url='/pages/recruit/recruit' open-type='switchTab'>去发布</navigator>
             </view>
-          </view>
+          </empty-area>
 
           <view class="weui-tab__content" hidden="{{hasPostedClass == 0}}">
             <block wx:for="{{applyList}}" wx:key="id">
@@ -57,12 +56,9 @@
 
         <!-- tab2 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class='page' hidden="{{hasReservedClass != 0}}">
-            <view class='none'>
-              <image src='/image/meh.png' class='none-img'></image>
-              <view class='none-text'>还没有人预约过你的课程哦</view>
-            </view>
-          </view>
+          <empty-area wx:if="hasReservedClass === 0">
+            还没有人预约过你的课程哦
+          </empty-area>
 
           <view class='page' hidden="{{hasReservedClass == 0}}">
             <view wx:for="{{othersApplyList}}" wx:key="id">

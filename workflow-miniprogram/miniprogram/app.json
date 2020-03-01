@@ -26,7 +26,8 @@
     "pages/matchCutoffDetail/matchCutoffDetail",
     "pages/createTeam/createTeam",
     "pages/myClass/myClass",
-    "pages/createCourse/createCourse"
+    "pages/createCourse/createCourse",
+    "pages/createMatch/createMatch"
   ],
   "window": {
     "backgroundTextStyle": "light",
