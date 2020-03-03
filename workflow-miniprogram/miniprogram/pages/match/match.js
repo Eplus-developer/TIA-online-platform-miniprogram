@@ -198,9 +198,7 @@ Page({
       item.activitySignUpDeadline = util.formatTime(
         new Date(item.activitySignUpDeadline)
       )
-      item.activityTime = util.formatTime(
-        new Date(item.activityTime)
-      )
+      item.activityTime = util.formatTime(new Date(item.activityTime))
     }
     console.log(res)
     this.setData({
@@ -213,9 +211,7 @@ Page({
       item.activitySignUpDeadline = util.formatTime(
         new Date(item.activitySignUpDeadline)
       )
-      item.activityTime = util.formatTime(
-        new Date(item.activityTime)
-      )
+      item.activityTime = util.formatTime(new Date(item.activityTime))
     }
     this.setData({
       cutoffMatches: res,

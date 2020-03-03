@@ -65,13 +65,9 @@ Page({
 
   changeFocus: async function(e) {
     let method = this.data.match.followed === true ? 'DELETE' : 'PUT'
-    let title =
-      this.data.match.followed === true ? '取消收藏' : '收藏成功'
+    let title = this.data.match.followed === true ? '取消收藏' : '收藏成功'
     try {
-      await util.request(
-        '/user/activity/' + this.data.id,
-        method
-      )
+      await util.request('/user/activity/' + this.data.id, method)
       wx.showToast({
         title: title,
         icon: 'success'
@@ -119,9 +115,7 @@ Page({
       res.activitySignUpDeadline = util.formatTime(
         new Date(res.activitySignUpDeadline)
       )
-      res.activityTime = util.formatTime(
-        new Date(res.activityTime)
-      )
+      res.activityTime = util.formatTime(new Date(res.activityTime))
       this.setData({
         match: res
       })

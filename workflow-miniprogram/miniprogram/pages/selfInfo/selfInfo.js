@@ -1,4 +1,6 @@
 // pages/selfInfo/selfInfo.js
+import util from '../../utils/util'
+
 Page({
   /**
    * 页面的初始数据
@@ -27,83 +29,20 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    var that = this
-    //获取userId
-    wx.request({
-      url: getApp().globalData.baseURL + '/user/myself',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        var userId = res.data.data
-        //获取关注数
-        wx.request({
-          url:
-            getApp().globalData.baseURL + '/user/' + userId + '/followingUser',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res) {
-            that.setData({
-              followingUserNum: res.data.data.length
-            })
-          },
-          fail: function(res2) {
-            console.log('get followingUser fail!')
-          }
-        })
-
-        //获取粉丝数
-        wx.request({
-          url:
-            getApp().globalData.baseURL + '/user/' + userId + '/followedUser',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res) {
-            that.setData({
-              followedUserNum: res.data.data.length
-            })
-          },
-          fail: function(res2) {
-            console.log('get followedUser fail!')
-          }
-        })
-
-        //获取个人信息
-        wx.request({
-          url: getApp().globalData.baseURL + '/user/' + userId + '/detailPage',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res) {
-            console.log(res.data.data)
-            that.setData({
-              info: res.data.data
-            })
-          },
-          fail: function(res) {
-            console.log('get info fail!')
-          }
-        })
-      },
-      fail: function(res) {
-        console.log('get userId fail!')
-      }
-    })
+  onLoad: async function(options) {
+    try {
+      let code = await util.request('/user/myself', 'GET')
+      let f = await util.request(`/user/${code}/followingUser`, 'GET')
+      let n = await util.request(`/user/${code}/followedUser`, 'GET')
+      let info = await util.request(`/user/${code}/detailPage`, 'GET')
+      this.setData({
+        followingUserNum: f.length,
+        followedUserNum: n.length,
+        info: info
+      })
+    } catch (e) {
+      console.log('获取失败')
+    }
   },
 
   /**

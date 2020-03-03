@@ -10,7 +10,7 @@
       </view>
 
       <view class='form-item'>
-        <view class='item-title'>主讲人:</view> 
+        <view class='item-title'>主讲人:</view>
         <input name='lecturer' placeholder='主讲人'></input>
       </view>
 
@@ -39,7 +39,7 @@
       </view>
     </view>
 
-    <view class='tia-btn'>
+    <view class='big-tia-btn'>
       <button form-type='submit'>创建课程</button>
     </view>
   </form>

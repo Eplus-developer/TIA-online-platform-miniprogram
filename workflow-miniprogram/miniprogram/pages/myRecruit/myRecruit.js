@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ['我的申请', '处理申请', '我发布的'],
+    tabs: ['我的申请', '我发布的'],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -14,23 +14,24 @@ Page({
     hasApply: 0,
     othersApplyList: [],
     applyList: [],
-    sliderWidth: 96
+    sliderWidth: 96,
+    recruitmentList: [],
+    hasRecruitment: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function(options) {
-    var that = this
     wx.getSystemInfo({
-      success: function(res) {
-        var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
-        that.setData({
+      success: res => {
+        let sliderWidth_new = res.windowWidth / (2 * this.data.tabs.length)
+        this.setData({
           sliderWidth: sliderWidth_new,
           sliderLeft:
-            (res.windowWidth / that.data.tabs.length - sliderWidth_new) / 2,
+            (res.windowWidth / this.data.tabs.length - sliderWidth_new) / 2,
           sliderOffset:
-            (res.windowWidth / that.data.tabs.length) * that.data.activeIndex
+            (res.windowWidth / this.data.tabs.length) * this.data.activeIndex
         })
       }
     })
@@ -98,10 +99,13 @@ Page({
 
   acceptApply: async function(e) {
     try {
-      let res = await util.request('/recruit/' +
-        e.currentTarget.dataset.recruitId +
-        '/user/' +
-        e.currentTarget.dataset.userId, 'PUT')
+      await util.request(
+        '/recruit/' +
+          e.currentTarget.dataset.recruitId +
+          '/user/' +
+          e.currentTarget.dataset.userId,
+        'PUT'
+      )
       wx.showToast({
         title: '已同意',
         icon: 'success'
@@ -137,55 +141,30 @@ Page({
     this.refresh()
   },
 
-  cancelAppliedRecruit: function(e) {
-    var that = this
+  cancelAppliedRecruit: async function(e) {
     wx.showModal({
       title: '是否取消申请？',
       showCancel: true,
       cancelText: '取消',
-      success: function(res) {
+      success: async res => {
         if (!res.confirm) return
-        wx.request({
-          url: getApp().globalData.baseURL + '/user/myself',
-          method: 'GET',
-          header: {
-            ...getApp().globalData.globalHeaders,
-            'content-type': 'application/json',
-            openid: wx.getStorageSync('openid')
-          },
-          success: function(res) {
-            wx.request({
-              url:
-                getApp().globalData.baseURL +
-                '/recruit/' +
-                e.currentTarget.dataset.recruitId +
-                '/appliedUser/' +
-                res.data.data,
-              method: 'DELETE',
-              header: {
-                ...getApp().globalData.globalHeaders,
-                'content-type': 'application/json',
-                openid: wx.getStorageSync('openid')
-              },
-              success: function(res) {
-                wx.showToast({
-                  title: '取消申请成功！',
-                  icon: 'success'
-                })
-                that.onLoad()
-              },
-              fail: function(res) {
-                wx.showToast({
-                  title: '操作失败！',
-                  icon: 'loading'
-                })
-              }
-            })
-          },
-          fail: function(res) {
-            console.log('get selfId fail!')
-          }
-        })
+        try {
+          let code = await util.request('/user/myself', 'GET')
+          await util.request(
+            `/recruit/${e.currentTarget.dataset.recruitId}/appliedUser/${code}`,
+            'DELETE'
+          )
+          wx.showToast({
+            title: '成功取消',
+            icon: 'success'
+          })
+        } catch (e) {
+          wx.showModal({
+            title: '取消失败',
+            showCancel: false
+          })
+          console.log(e)
+        }
       },
       fail: function(res) {
         wx.showToast({
@@ -210,15 +189,30 @@ Page({
     }
 
     // 待处理的提交的申请
+    // 此页面不再展示等处理的申请
+    // try {
+    //   let application = await util.request('/recruit/myAppliedUsers', 'GET')
+    //   console.log(application)
+    //   this.setData({
+    //     othersApplyList: application,
+    //     hasOthersApply: application.length
+    //   })
+    // } catch (e) {
+    //   console.log('获取失败')
+    // }
+
     try {
-      let application = await util.request('/recruit/myAppliedUsers', 'GET')
-      console.log(application)
+      let recruitmentList = await util.request('/recruit/all/publish', 'GET')
       this.setData({
-        othersApplyList: application,
-        hasOthersApply: application.length
+        recruitmentList: recruitmentList,
+        hasRecruitment: recruitmentList.length
       })
     } catch (e) {
-      console.log('获取失败')
+      wx.showModal({
+        title: '获取失败',
+        showCancel: false
+      })
+      console.log(e)
     }
   }
 })

@@ -63,7 +63,6 @@ Page({
         })
       }
     })
-
   },
 
   /**
@@ -171,9 +170,7 @@ Page({
         item.activitySignUpDeadline = util.formatTime(
           new Date(item.activitySignUpDeadline)
         )
-        item.activityTime = util.formatTime(
-          new Date(item.activityTime)
-        )
+        item.activityTime = util.formatTime(new Date(item.activityTime))
       }
       let res3 = await util.request(`/user/${code}/followedRecruit`, 'GET')
       console.log(res3)

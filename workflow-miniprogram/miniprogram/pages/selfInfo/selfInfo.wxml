@@ -31,7 +31,7 @@
   <view class='info'>
     <view class='info-item'>
       <view class='info-title'>性别</view>
-      <view class='info-desc'>{{genderArr[info.gender]}}</view>
+      <view class='info-desc'>{{genderArr[info.gender ? 0 : 1]}}</view>
     </view>
     <view class='info-item'>
       <view class='info-title'>学号</view>
@@ -39,7 +39,7 @@
     </view>
     <view class='info-item'>
       <view class='info-title'>院系</view>
-      <view class='info-desc'>{{collegeArr[info.college]}}</view>
+      <view class='info-desc'>{{info.college}}</view>
     </view>
     <view class='info-item'>
       <view class='info-title'>年级</view>

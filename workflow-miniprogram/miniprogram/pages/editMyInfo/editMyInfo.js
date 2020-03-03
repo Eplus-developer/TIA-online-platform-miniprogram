@@ -1,5 +1,6 @@
 // pages/editMyInfo/editMyInfo.js
 import { checkPhone, checkEmail } from '../../utils/util'
+import util from '../../utils/util'
 
 Page({
   /**
@@ -23,14 +24,36 @@ Page({
     genderArr: ['男', '女', '未知'],
     collegeIndex: 0,
     gradeIndex: 0,
-    genderIndex: 0
+    genderIndex: 0,
+    userPhone: '',
+    userEmail: '',
+    userSpecialty: '',
+    userResume: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-
+  onLoad: async function(options) {
+    try {
+      let code = await util.request('/user/myself', 'GET')
+      let info = await util.request(`/user/${code}/detailPage`, 'GET')
+      console.log(info)
+      let college = this.data.collegeArr.indexOf(info.college)
+      if (college === -1) college = 0
+      this.setData({
+        collegeIndex: college,
+        gradeIndex: parseInt(info.userGrade),
+        genderIndex: info.gender ? 0 : 1,
+        userPhone: info.userPhone,
+        userEmail: info.userEmail,
+        userSpecialty: info.userSpecialty,
+        userResume: info.userResume
+      })
+      console.log(info)
+    } catch (e) {
+      console.log('获取失败')
+    }
   },
 
   /**
@@ -86,8 +109,7 @@ Page({
     })
   },
 
-  formSubmit: function(e) {
-    console.log(e.detail.value)
+  formSubmit: async function(e) {
     if (!checkPhone(e.detail.value.userPhone)) {
       wx.showToast({
         title: '手机号非法',
@@ -102,40 +124,25 @@ Page({
       })
       return
     }
-    wx.request({
-      url: getApp().globalData.baseURL + '/user/self',
-      method: 'PUT',
-      data: {
-        username: e.detail.value.username,
-        gender: e.detail.value.gender,
-        userNumber: e.detail.value.userNumber,
-        college: e.detail.value.college,
-        userGrade: e.detail.value.userGrade,
-        userPhone: e.detail.value.userPhone,
-        userEmail: e.detail.value.userEmail,
-        userSpecialty: e.detail.value.userSpecialty,
-        wxId: e.detail.value.wxId,
-        userResume: e.detail.value.userResume
-      },
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        wx.showToast({
-          title: '修改成功！',
-          icon: 'success'
-        })
-        setTimeout(() => {
-          wx.redirectTo({
-            url: '/pages/selfInfo/selfInfo'
-          })
-        }, 1000)
-      },
-      fail: function(res) {
-        console.log('edit fail!')
-      }
-    })
+    try {
+      await util.request('/user/self', 'PUT', {
+        gender: parseInt(this.data.genderIndex) === 0,
+        college: this.data.collegeArr[this.data.collegeIndex],
+        grade: this.data.gradeIndex,
+        phone: e.detail.value.userPhone,
+        email: e.detail.value.userEmail,
+        specialty: e.detail.value.userSpecialty,
+        resume: e.detail.value.userResume
+      })
+      wx.showToast({
+        title: '修改成功！',
+        icon: 'success'
+      })
+      wx.redirectTo({
+        url: '/pages/selfInfo/selfInfo'
+      })
+    } catch (e) {
+      console.log('修改失败')
+    }
   }
 })

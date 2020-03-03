@@ -24,7 +24,7 @@ App({
               'content-type': 'application/json'
             },
             success: function(res) {
-              if (res.statusCode == 200) {
+              if (res.statusCode === 200) {
                 console.log('get openid success!')
                 wx.setStorageSync('openid', res.data.data)
               } else {

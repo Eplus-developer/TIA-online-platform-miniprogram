@@ -11,10 +11,10 @@
 
       <view class='form-title'>个人信息</view>
 
-      <view class='form-item'>
-        <view class='item-title'>昵称:</view>
-        <input name="username" placeholder="您的昵称"></input>
-      </view>
+<!--      <view class='form-item'>-->
+<!--        <view class='item-title'>昵称:</view>-->
+<!--        <input name="username" placeholder="您的昵称"></input>-->
+<!--      </view>-->
 
       <view class='form-item'>
         <view class='item-title'>性别:</view>
@@ -25,10 +25,10 @@
         </picker>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>学号:</view>
-        <input name="userNumber" placeholder="您的学号"></input>
-      </view>
+<!--      <view class='form-item'>-->
+<!--        <view class='item-title'>学号:</view>-->
+<!--        <input name="userNumber" placeholder="您的学号"></input>-->
+<!--      </view>-->
 
       <view class='form-item'>
         <view class='item-title'>院系:</view>
@@ -50,27 +50,27 @@
 
       <view class='form-item'>
         <view class='item-title'>电话:</view>
-        <input name="userPhone" placeholder="您的电话"></input>
+        <input name="userPhone" placeholder="您的电话" value="{{userPhone}}"></input>
       </view>
 
       <view class='form-item'>
         <view class='item-title'>邮箱:</view>
-        <input name="userEmail" placeholder="您的邮箱"></input>
+        <input name="userEmail" placeholder="您的邮箱" value="{{userEmail}}"></input>
       </view>
 
       <view class='form-item'>
         <view class='item-title'>专长:</view>
-        <input name="userSpecialty" placeholder="您的专长"></input>
+        <input name="userSpecialty" placeholder="您的专长" value="{{userSpecialty}}"></input>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>微信号:</view>
-        <input name="wxId" placeholder="您的微信号"></input>
-      </view>
+<!--      <view class='form-item'>-->
+<!--        <view class='item-title'>微信号:</view>-->
+<!--        <input name="wxId" placeholder="您的微信号"></input>-->
+<!--      </view>-->
 
       <view class='form-item'>
         <view class='item-title'>简介:</view>
-        <textarea name="userResume" placeholder="编辑您的简介"></textarea>
+        <textarea name="userResume" placeholder="编辑您的简介" value="{{userResume}}"></textarea>
       </view>
     </view>
 

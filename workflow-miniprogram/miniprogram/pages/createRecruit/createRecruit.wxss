@@ -1,5 +1,3 @@
-/* pages/createRecruit/createRecruit.wxss */
-
 .form-info {
   background-color: white;
   width: 85%;
@@ -15,41 +13,41 @@
   color: #4a69bd;
 }
 
-.form-item{
+.form-item {
   width: 100%;
   display: flex;
   flex-direction: row;
   border-bottom: 2rpx dashed #7286bdab;
 }
 
-.form-item:last-child{
+.form-item:last-child {
   width: 100%;
   display: flex;
   flex-direction: column;
   border-bottom: none;
 }
 
-.item-title{
+.item-title {
   font-size: 36rpx;
   margin: 20rpx 0;
   width: 30%;
 }
 
-input{
+input {
   font-size: 36rpx;
   display: block;
   margin: 20rpx 0;
 }
 
-picker{
-  /* height: 60rpx; */
+picker {
+  /* height: 60rpx */
   font-size: 36rpx;
   border-bottom: 0rpx solid #fff;
   display: block;
   margin: 20rpx 0;
 }
 
-textarea{
+textarea {
   border: 2rpx dashed #7286bdab;
   padding: 10rpx;
   width: 95%;
@@ -57,3 +55,19 @@ textarea{
   margin-bottom: 20rpx;
   font-size: 36rpx;
 }
+
+.form-btn {
+  width: 50%;
+  margin: 50rpx auto;
+  padding: 15rpx;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 20rpx;
+  color: #4a69bd;
+  font-size: 50rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*# sourceMappingURL=createRecruit.wxss.map */

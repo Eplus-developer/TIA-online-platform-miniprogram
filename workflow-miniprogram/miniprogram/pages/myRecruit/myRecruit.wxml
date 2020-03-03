@@ -55,31 +55,67 @@
         </view>
 
         <!-- tab2 -->
+<!--        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">-->
+<!--          <empty-area wx:if="{{hasOthersApply === 0}}">-->
+<!--            还没有人应聘哦-->
+<!--          </empty-area>-->
+
+<!--          <view class='page' hidden="{{hasOthersApply == 0}}">-->
+<!--            <view wx:for="{{othersApplyList}}" wx:key="id">-->
+<!--              <view class='focus-item'>-->
+<!--                <navigator class='focus-img-out' url='/pages/othersInfo/othersInfo' hover-class='none'>-->
+<!--                  <image src='/image/tia.png' class='focus-img'></image>-->
+<!--                </navigator>-->
+<!--                <view class='focus-text'>-->
+<!--                  <view class='focus-name'>{{item.username}}</view>-->
+<!--                  <view class='focus-desc'>{{item.userResume}}</view>-->
+<!--                </view>-->
+<!--                <view class='focus-btn' data-user-id='{{item.userId}}' data-recruit-id='{{item.recruitId}}' bindtap='acceptApply'>-->
+<!--                  <view class="focus-btn-in">同意申请</view>-->
+<!--                </view>-->
+<!--              </view>-->
+<!--            </view>-->
+<!--          </view>-->
+<!--        </view>-->
+
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <empty-area wx:if="{{hasOthersApply === 0}}">
-            还没有人应聘哦
+          <empty-area wx:if="{{hasRecruitment === 0}}">
+            <view>你还没有发布过招聘哦</view>
+            <view slot="append">
+              <navigator class='common-btn' url='/pages/recruit/recruit' open-type='switchTab'>去发布</navigator>
+            </view>
           </empty-area>
 
-          <view class='page' hidden="{{hasOthersApply == 0}}">
-            <view wx:for="{{othersApplyList}}" wx:key="id">
-              <view class='focus-item'>
-                <navigator class='focus-img-out' url='/pages/othersInfo/othersInfo' hover-class='none'>
-                  <image src='/image/tia.png' class='focus-img'></image>
-                </navigator>
-                <view class='focus-text'>
-                  <view class='focus-name'>{{item.username}}</view>
-                  <view class='focus-desc'>{{item.userResume}}</view>
+          <view class="weui-tab__content" wx:if="{{hasRecruitment !== 0}}">
+            <block wx:for="{{recruitmentList}}" wx:key="id">
+              <view class="box recruit-item" bindtap='toDetail' hover-class="navigator-hover" id="{{item.recruitId}}">
+                <view class="top-item">
+                  <view class='info'>
+                    <view catchtap='toOthersInfo' data-id='{{item.organizer.userId}}'>
+                      <image class="msgbox_in_img" id="userinfo" src='https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a3.jpg'></image>
+                    </view>
+                    <view>
+                      <view class="username">{{item.organizer.username}}</view>
+                    </view>
+                  </view>
+                  <view>
+                    <image src='{{item.followed == true ? "/image/focus.png" : "/image/unfocus.png"}}' data-id='{{item}}' catchtap='changeFocus' hover-class="none" class='img'></image>
+                  </view>
                 </view>
-                <view class='focus-btn' data-user-id='{{item.userId}}' data-recruit-id='{{item.recruitId}}' bindtap='acceptApply'>
-                  <view class="focus-btn-in">同意申请</view>
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.recruitName}}</view>
+                <view class="weui-media-box__desc">
+                  {{item.activityName}}
+                </view>
+                <view class="weui-media-box__desc recruit-pos">
+                  {{item.recruitPosition}}
+                </view>
+                <view class='footer'>
+                  <view class='footer-text'>申请情况：{{item.recruitRegisteredNumber}}/{{item.recruitWillingNumber}}名</view>
+                  <image src='/image/more.png' class='more'></image>
                 </view>
               </view>
-            </view>
+            </block>
           </view>
-        </view>
-
-        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          已发布招聘
         </view>
       </view>
     </view>
