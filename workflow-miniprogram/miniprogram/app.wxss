@@ -54,3 +54,7 @@ page {
   font-weight: bold;
   text-align: center;
 }
+
+.page-container {
+  padding: 1em;
+}

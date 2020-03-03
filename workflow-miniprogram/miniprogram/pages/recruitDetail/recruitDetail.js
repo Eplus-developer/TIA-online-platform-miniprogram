@@ -1,38 +1,37 @@
 // pages/recruitDetail/recruitDetail.js
+import util from '../../utils/util'
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    showApply: false,
+    showAppliers: false,
+
     recruit: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    var that = this
-    wx.request({
-      url:
-        getApp().globalData.baseURL +
-        '/recruit/' +
-        wx.getStorageSync('recruitId'),
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data)
-        that.setData({
-          recruit: res.data.data
-        })
-      },
-      fail: function(res) {
-        console.log('fail!')
-      }
+  onLoad: async function(options) {
+    this.setData({
+      showApply: !!options.showApply,
+      showAppliers: !!options.showAppliers
     })
+    try {
+      let res = await util.request(`/recruit/${wx.getStorageSync('recruitId')}`, 'GET')
+      this.setData({
+        recruit: res
+      })
+    } catch (e) {
+      wx.showModal({
+        title: '招聘获取失败',
+        showCancel: false
+      })
+      console.log(e)
+    }
   },
 
   /**

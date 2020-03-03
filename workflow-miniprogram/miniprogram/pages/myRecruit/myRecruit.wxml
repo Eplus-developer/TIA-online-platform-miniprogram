@@ -14,12 +14,12 @@
 
         <!-- tab1 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <empty-area wx:if="{{hasApply === 0}}">
+          <w-empty wx:if="{{hasApply === 0}}">
             <view>你还没有应聘职位哦</view>
             <view slot="append">
               <navigator class='common-btn' url='/pages/recruit/recruit' open-type='switchTab'>去应聘</navigator>
             </view>
-          </empty-area>
+          </w-empty>
 
           <view class="weui-tab__content" hidden="{{hasApply == 0}}">
             <block wx:for="{{applyList}}" wx:key="id">
@@ -56,9 +56,9 @@
 
         <!-- tab2 -->
 <!--        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">-->
-<!--          <empty-area wx:if="{{hasOthersApply === 0}}">-->
+<!--          <w-empty wx:if="{{hasOthersApply === 0}}">-->
 <!--            还没有人应聘哦-->
-<!--          </empty-area>-->
+<!--          </w-empty>-->
 
 <!--          <view class='page' hidden="{{hasOthersApply == 0}}">-->
 <!--            <view wx:for="{{othersApplyList}}" wx:key="id">-->
@@ -79,12 +79,12 @@
 <!--        </view>-->
 
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <empty-area wx:if="{{hasRecruitment === 0}}">
+          <w-empty wx:if="{{hasRecruitment === 0}}">
             <view>你还没有发布过招聘哦</view>
             <view slot="append">
               <navigator class='common-btn' url='/pages/recruit/recruit' open-type='switchTab'>去发布</navigator>
             </view>
-          </empty-area>
+          </w-empty>
 
           <view class="weui-tab__content" wx:if="{{hasRecruitment !== 0}}">
             <block wx:for="{{recruitmentList}}" wx:key="id">

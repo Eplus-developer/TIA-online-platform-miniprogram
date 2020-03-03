@@ -23,7 +23,7 @@
 
       <!-- tab1 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-        <empty-area wx:if="{{hasMatch === 0}}">近期没有比赛哦</empty-area>
+        <w-empty wx:if="{{hasMatch === 0}}">近期没有比赛哦</w-empty>
 
         <view class='page' hidden="{{hasMatch == 0}}">
           <block wx:for="{{matches}}" wx:key="id">
@@ -51,9 +51,9 @@
 
       <!-- tab2 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-        <empty-area wx:if="{{hasCutoffMatch === 0}}">
+        <w-empty wx:if="{{hasCutoffMatch === 0}}">
           没有已截止的比赛哦
-        </empty-area>
+        </w-empty>
 
         <view class='page' hidden="{{hasCutoffMatch === 0}}">
           <block wx:for="{{cutoffMatches}}" wx:key="id">

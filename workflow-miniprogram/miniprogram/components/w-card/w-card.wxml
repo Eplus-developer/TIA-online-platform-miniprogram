@@ -1,0 +1,9 @@
+<!--components/w-card/w-card.wxml-->
+<view class="card">
+  <image src="{{icon}}" mode="widthFix" class="img" />
+  <view class="body">
+    <view class="title"><slot name="title"></slot></view>
+    <view class="detail"><slot name="detail"></slot></view>
+  </view>
+  <view class="action"><slot name="action"></slot></view>
+</view>

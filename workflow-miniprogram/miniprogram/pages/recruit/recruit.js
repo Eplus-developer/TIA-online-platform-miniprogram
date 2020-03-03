@@ -96,7 +96,7 @@ Page({
     wx.setStorageSync('recruitId', e.currentTarget.id)
     setTimeout(() => {
       wx.navigateTo({
-        url: '/pages/recruitDetail/recruitDetail'
+        url: '/pages/recruitDetail/recruitDetail?showApply'
       })
     }, 500)
   },

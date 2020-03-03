@@ -1,0 +1,2 @@
+<!--components/w-btn/w-btn.wxml-->
+<view class="btn {{rounded ? 'rounded' : ''}} {{fill ? 'fill' : ''}}"><slot></slot></view>

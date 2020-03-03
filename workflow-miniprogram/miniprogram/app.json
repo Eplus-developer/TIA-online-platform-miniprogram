@@ -27,7 +27,8 @@
     "pages/createTeam/createTeam",
     "pages/myClass/myClass",
     "pages/createCourse/createCourse",
-    "pages/createMatch/createMatch"
+    "pages/createMatch/createMatch",
+    "pages/appliers/appliers"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -75,6 +76,8 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "empty-area": "/components/empty-area/empty-area"
+    "w-empty": "/components/w-empty/empty-area",
+    "w-card": "/components/w-card/w-card",
+    "w-btn": "/components/w-btn/w-btn"
   }
 }

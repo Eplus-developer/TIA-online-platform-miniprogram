@@ -31,7 +31,8 @@
       <textarea disabled='true'>{{recruit.recruitDescription}}</textarea>
     </view>
   </view>
-  <view class='big-tia-btn' bindtap='applyRecruit'>
-    应 聘
-  </view>
+  <view class='big-tia-btn' bindtap='applyRecruit' wx:if="{{showApply}}">应 聘</view>
+  <navigator url="/pages/appliers/appliers?recruitId={{recruit.recruitId}}" wx:if="{{showAppliers}}">
+    <view class="big-tia-btn">查看应聘者</view>
+  </navigator>
 </view>

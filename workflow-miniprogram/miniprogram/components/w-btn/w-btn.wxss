@@ -1,0 +1,27 @@
+.btn {
+  height: 2.5em;
+  padding: 0 1em;
+  border: solid 2rpx #4a69bd;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  transition: 0.2s;
+}
+.btn:active {
+  background: #4a69bd;
+}
+
+.rounded {
+  border-radius: 1.25em;
+}
+
+.fill {
+  background: #4a69bd;
+  color: white;
+}
+.fill:active {
+  background: #5d8cf3;
+}
+
+/*# sourceMappingURL=w-btn.wxss.map */
