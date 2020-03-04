@@ -58,7 +58,7 @@
   </view>
 
   <view>
-    <navigator url='/pages/selfInfo/selfInfo' class="msgbox notify">
+    <navigator url='/pages/selfInfo/selfInfo?editable' class="msgbox notify">
       <view class="weui-cell__bd">
         <view class='notify_text'>个人主页</view>
       </view>

@@ -114,9 +114,10 @@ Page({
     wx.setStorageSync('matchId', e.currentTarget.id)
   },
 
-  toOthersInfo: function() {
+  toOthersInfo: function(e) {
+    console.log(e)
     wx.navigateTo({
-      url: '/pages/othersInfo/othersInfo'
+      url: `/pages/selfInfo/selfInfo?userId=${e.currentTarget.dataset.userId}`
     })
   },
 

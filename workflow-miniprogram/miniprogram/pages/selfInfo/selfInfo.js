@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    editable: false,
     info: [],
     followingUserNum: 0,
     followedUserNum: 0,
@@ -30,8 +31,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function(options) {
+    this.setData({
+      editable: !!options.editable
+    })
     try {
       let code = await util.request('/user/myself', 'GET')
+      if (options.userId) code = parseInt(options.userId)
       let f = await util.request(`/user/${code}/followingUser`, 'GET')
       let n = await util.request(`/user/${code}/followedUser`, 'GET')
       let info = await util.request(`/user/${code}/detailPage`, 'GET')

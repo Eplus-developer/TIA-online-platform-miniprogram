@@ -19,7 +19,6 @@
     "pages/feedback/feedback",
     "pages/aboutUs/aboutUs",
     "pages/help/help",
-    "pages/othersInfo/othersInfo",
     "pages/createRecruit/createRecruit",
     "pages/matchDetail/matchDetail",
     "pages/matchHistoryDetail/matchHistoryDetail",

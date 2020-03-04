@@ -3,7 +3,7 @@
   <w-empty wx:if="{{hasUser === 0}}">还没有人应聘哦</w-empty>
   <block wx:if="{{hasUser !== 0}}" wx:for="{{users}}" wx:key="index">
     <w-card icon="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583259097737&di=3d9fc319882579147c4fcf2f126bc811&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp90995552.jpg">
-      <view slot="title">{{item.userName}}</view>
+      <view slot="title" bindtap="userDetail" data-id="{{item.userId}}">{{item.userName}}</view>
       <view slot="detail">{{item.userResume}}</view>
       <view slot="action"><w-btn rounded bindtap="pass" data-id="{{item.userId}}">通过</w-btn></view>
     </w-card>

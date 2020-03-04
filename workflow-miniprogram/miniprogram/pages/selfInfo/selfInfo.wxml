@@ -2,12 +2,13 @@
 <view class='page'>
   <view class='top-show'>
     <view>
-      <navigator url='/pages/editMyInfo/editMyInfo' hover-class='none'>
+      <navigator wx:if="{{editable}}" url='/pages/editMyInfo/editMyInfo' hover-class='none'>
         <image src='/image/edit.png' class='top-kit'></image>
       </navigator>
+      <button wx:if="{{!editable}}" class="weui-btn" type="default" size="mini" class="top-btn" bindtap='follow'>关注</button>
     </view>
     <open-data type="userAvatarUrl" class="top-avatar" id="userinfo"></open-data>
-    <open-data type="userNickName" class="top-name"></open-data>
+    <view type="userNickName" class="top-name">{{info.userName}}</view>
   </view>
   <view class='social'>
     <navigator class='social-item' url='/pages/myWorkMate/myWorkMate' hover-class='none'>

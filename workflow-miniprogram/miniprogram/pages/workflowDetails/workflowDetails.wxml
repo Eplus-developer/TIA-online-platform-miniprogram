@@ -109,14 +109,14 @@
            <block wx:for="{{teamMember}}" wx:key="id">
             <view class="card">
               <view>
-                <navigator url="/pages/othersInfo/othersInfos" hover-class="none">
+                <navigator url="/pages/selfInfo/selfInfo?userId={{item.userId}}" hover-class="none">
                   <image src='https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a2.jpg' class="msgbox_in_img" id="userinfo">
                   </image>
                 </navigator>
               </view>
               <view class='msg_right'>
                 <view class="msgbox_in_text_title">
-                  {{item.username}}
+                  {{item.userName}}
                 </view>
                 <view class="msgbox_in_text_desc">{{item.userResume}}</view>
               </view>

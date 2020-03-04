@@ -1,5 +1,6 @@
 // pages/workflowDetails/workflowDetails.js
 import * as echarts from '../../ec-canvas/echarts'
+import util from '../../utils/util'
 
 const app = getApp()
 
@@ -266,43 +267,34 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    var that = this
+  onLoad: async function(options) {
     wx.getSystemInfo({
-      success: function(res) {
-        var sliderWidth_new = res.windowWidth / (2 * that.data.tabs.length)
-        that.setData({
+      success: (res) => {
+        let sliderWidth_new = res.windowWidth / (2 * this.data.tabs.length)
+        this.setData({
           sliderWidth: sliderWidth_new,
           sliderLeft:
-            (res.windowWidth / that.data.tabs.length - sliderWidth_new) / 2,
+            (res.windowWidth / this.data.tabs.length - sliderWidth_new) / 2,
           sliderOffset:
-            (res.windowWidth / that.data.tabs.length) * that.data.activeIndex
+            (res.windowWidth / this.data.tabs.length) * this.data.activeIndex
         })
       }
     })
 
-    wx.request({
-      url:
-        getApp().globalData.baseURL +
-        '/team/' +
-        wx.getStorageSync('teamId') +
-        '/members',
-      method: 'GET',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        console.log(res.data.data)
-        that.setData({
-          teamMember: res.data.data
-        })
-      },
-      fail: function(res) {
-        console.log('get team member fail!')
-      }
-    })
+    try {
+      let res = await util.request(`/team/${wx.getStorageSync('teamId')}/members`, 'GET')
+      console.log(res)
+      this.setData({
+        teamMember: res
+      })
+    } catch (e) {
+      wx.showModal({
+        title: '获取成员失败',
+        showCancel: false
+      })
+      console.log(e)
+    }
+
   },
 
   tabClick: function(e) {

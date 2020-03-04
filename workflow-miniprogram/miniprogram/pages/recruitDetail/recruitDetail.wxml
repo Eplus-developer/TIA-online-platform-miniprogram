@@ -4,7 +4,7 @@
     <view class='form-title'>招 聘 信 息 📃</view>
     <view class='form-item'>
       <view class='item-title-creator'>发布者:</view>
-      <navigator url='/pages/othersInfo/othersInfo' hover-class='none'>
+      <navigator url='/pages/selfInfo/selfInfo?userId={{recruit.organizer.id}}' hover-class='none'>
         <!-- <image src='https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/a3.jpg' class="msgbox_in_img" id="userinfo"></image> -->
         <view class="item-detail">{{recruit.organizer.name}}({{recruit.organizer.stuNumber ? '已实名' : '未实名'}})</view>
       </navigator>
