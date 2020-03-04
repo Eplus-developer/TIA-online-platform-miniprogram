@@ -2,7 +2,6 @@
 import util from '../../utils/util'
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -15,9 +14,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
+  onLoad: async function(options) {
     try {
-      let res = await util.request(`/recruit/${options.recruitId}/applyUser`, 'GET')
+      let res = await util.request(
+        `/recruit/${options.recruitId}/applyUser`,
+        'GET'
+      )
       console.log(res)
       this.setData({
         users: res,
@@ -36,51 +38,37 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
-  },
+  onHide: function() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
-  },
+  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
-  },
+  onPullDownRefresh: function() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
-  },
+  onReachBottom: function() {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
-  },
+  onShareAppMessage: function() {},
 
   async pass(e) {
     wx.showModal({
@@ -89,7 +77,10 @@ Page({
         if (res.cancel) return
         console.log(e.currentTarget.dataset.id)
         try {
-          await util.request(`/recruit/${this.data.recruitId}/user/${e.currentTarget.dataset.id}`, 'PUT')
+          await util.request(
+            `/recruit/${this.data.recruitId}/user/${e.currentTarget.dataset.id}`,
+            'PUT'
+          )
           wx.showToast({
             title: '通过成功',
             icon: 'success'
@@ -117,6 +108,8 @@ Page({
   },
 
   userDetail(e) {
-
+    wx.navigateTo({
+      url: `/pages/selfInfo/selfInfo?userId=${e.currentTarget.dataset.userId}`
+    })
   }
 })

@@ -1,46 +1,60 @@
 <!--miniprogram/pages/createCourse/createCourse.wxml-->
-<view class='page'>
-  <form bindsubmit="formSubmit">
-    <view class='form-info'>
-      <view class='form-title'>课 程 信 息</view>
+<view class="page">
+  <form bindsubmit="submit">
+    <view class="form-info">
+      <view class="form-title">课 程 信 息</view>
 
-      <view class='form-item'>
-        <view class='item-title'>课程名称:</view>
-        <input name="coursename" placeholder='课程名称'></input>
+      <view class="form-item">
+        <view class="item-title">课程名称:</view>
+        <input name="courseName" placeholder="课程名称"></input>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>主讲人:</view>
-        <input name='lecturer' placeholder='主讲人'></input>
+      <view class="form-item">
+        <view class="item-title">手机号码:</view>
+        <input name="phone" placeholder="手机号码"></input>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>手机号码:</view>
-        <input name='phone' placeholder="手机号码"></input>
+      <view class="form-item">
+        <view class="item-title">上课地点:</view>
+        <input name="location" placeholder="上课地点"></input>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>上课日期:</view>
-        <picker mode='date' value='{{date}}' start='2019-12-21' end='2022-01-01' bindchange='dateChange'>
-          <view class='picker'>{{date}}</view>
+      <view class="form-item">
+        <view class="item-title">上课日期:</view>
+        <picker name="courseDate" mode="date" value="{{courseDate}}" start="2019-12-21" end="2022-01-01" bindchange="courseDateChange">
+          <view class="picker">{{courseDate}}</view>
         </picker>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>上课时间:</view>
-        <picker mode='time' value='{{time}}' bindchange='timeChange'>
-          <view class='picker'>{{time}}</view>
+      <view class="form-item">
+        <view class="item-title">上课时间:</view>
+        <picker name="courseTime" mode="time" value="{{courseTime}}" bindchange="courseTimeChange">
+          <view class="picker">{{courseTime}}</view>
         </picker>
       </view>
 
-      <view class='form-item'>
-        <view class='item-title'>课程简介:</view>
+      <view class="form-item">
+        <view class="item-title">报名截止日期:</view>
+        <picker name="expirationDate" mode="date" value="{{expirationDate}}" start="2019-12-21" end="2022-01-01" bindchange="expirationDateChange">
+          <view class="picker">{{expirationDate}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="item-title">报名截止时间:</view>
+        <picker name="expirationTime" mode="time" value="{{expirationTime}}" bindchange="expirationTimeChange">
+          <view class="picker">{{expirationTime}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="item-title">课程简介:</view>
         <textarea name="description" placeholder="输入对课程的简介"></textarea>
       </view>
     </view>
 
-    <view class='big-tia-btn'>
-      <button form-type='submit'>创建课程</button>
+    <view class="big-tia-btn">
+      <button form-type="submit">创建课程</button>
     </view>
   </form>
 </view>

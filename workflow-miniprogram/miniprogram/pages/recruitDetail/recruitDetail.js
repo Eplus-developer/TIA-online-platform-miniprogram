@@ -21,7 +21,10 @@ Page({
       showAppliers: !!options.showAppliers
     })
     try {
-      let res = await util.request(`/recruit/${wx.getStorageSync('recruitId')}`, 'GET')
+      let res = await util.request(
+        `/recruit/${wx.getStorageSync('recruitId')}`,
+        'GET'
+      )
       this.setData({
         recruit: res
       })

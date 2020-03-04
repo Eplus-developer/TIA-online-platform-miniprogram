@@ -1,11 +1,15 @@
 // miniprogram/pages/createCourse/createCourse.js
+import util from '../../utils/util'
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    date: '2020-01-31',
-    time: '20:00'
+    courseDate: '2020-01-31',
+    courseTime: '20:00',
+    expirationDate: '2020-01-31',
+    expirationTime: '20:00'
   },
 
   /**
@@ -48,17 +52,58 @@ Page({
    */
   onShareAppMessage: function() {},
 
-  dateChange: function(e) {
-    var that = this
-    that.setData({
-      date: e.detail.value
+  async submit(e) {
+    try {
+      let f = e.detail.value
+      let res = await util.request('/activity', 'POST', {
+        name: f.courseName,
+        description: f.description,
+        activityType: 'course',
+        actTime: f.courseDate + ' ' + f.courseTime,
+        endTime: f.expirationDate + ' ' + f.expirationTime,
+        location: f.location,
+        phone: f.phone,
+        quantityType: false
+      })
+
+      console.log(res)
+      wx.showToast({
+        title: '创建成功',
+        icon: 'success'
+      })
+      wx.switchTab({
+        url: '/pages/recruit/recruit'
+      })
+    } catch (e) {
+      wx.showModal({
+        title: '创建失败',
+        showCancel: false
+      })
+      console.log(e)
+    }
+  },
+
+  courseDateChange(e) {
+    this.setData({
+      courseDate: e.detail.value
     })
   },
 
-  timeChange: function(e) {
-    var that = this
-    that.setData({
-      time: e.detail.value
+  courseTimeChange(e) {
+    this.setData({
+      courseTime: e.detail.value
+    })
+  },
+
+  expirationDateChange(e) {
+    this.setData({
+      expirationDate: e.detail.value
+    })
+  },
+
+  expirationTimeChange(e) {
+    this.setData({
+      expirationTime: e.detail.value
     })
   }
 })

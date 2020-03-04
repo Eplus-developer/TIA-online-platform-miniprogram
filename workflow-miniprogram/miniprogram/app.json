@@ -24,10 +24,10 @@
     "pages/matchHistoryDetail/matchHistoryDetail",
     "pages/matchCutoffDetail/matchCutoffDetail",
     "pages/createTeam/createTeam",
-    "pages/myClass/myClass",
     "pages/createCourse/createCourse",
     "pages/createMatch/createMatch",
-    "pages/appliers/appliers"
+    "pages/appliers/appliers",
+    "pages/myCourse/myCourse"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,7 +39,7 @@
     "color": "#dddddd",
     "selectedColor": "#4a69bd",
     "borderStyle": "white",
-    "backgroudColor": "white",
+    "backgroundColor": "white",
     "list": [
       {
         "pagePath": "pages/myTeam/myTeam",
@@ -77,6 +77,7 @@
   "usingComponents": {
     "w-empty": "/components/w-empty/empty-area",
     "w-card": "/components/w-card/w-card",
-    "w-btn": "/components/w-btn/w-btn"
+    "w-btn": "/components/w-btn/w-btn",
+    "w-tab-view": "/components/w-tab-view/w-tab-view"
   }
 }

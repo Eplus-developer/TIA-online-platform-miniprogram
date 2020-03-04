@@ -269,7 +269,7 @@ Page({
    */
   onLoad: async function(options) {
     wx.getSystemInfo({
-      success: (res) => {
+      success: res => {
         let sliderWidth_new = res.windowWidth / (2 * this.data.tabs.length)
         this.setData({
           sliderWidth: sliderWidth_new,
@@ -282,7 +282,10 @@ Page({
     })
 
     try {
-      let res = await util.request(`/team/${wx.getStorageSync('teamId')}/members`, 'GET')
+      let res = await util.request(
+        `/team/${wx.getStorageSync('teamId')}/members`,
+        'GET'
+      )
       console.log(res)
       this.setData({
         teamMember: res
@@ -294,7 +297,6 @@ Page({
       })
       console.log(e)
     }
-
   },
 
   tabClick: function(e) {
