@@ -1,7 +1,23 @@
 <!--miniprogram/pages/myCourse/myCourse.wxml-->
 <view>
   <w-tab-view tabs="{{['我发布的', '我预约的']}}">
-    <view slot="0" class="page-container">第一条</view>
-    <view slot="1" class="page-container">第二条</view>
+    <view slot="0" class="page-container">
+      <w-empty wx:if="{{created.length === 0}}">您还没有创建过课程</w-empty>
+      <block wx:for="{{created}}" wx:key="index">
+        <w-card bindtap="toAppliers" data-course-id="{{item.id}}" icon="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583259097737&di=3d9fc319882579147c4fcf2f126bc811&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp90995552.jpg">
+          <view slot="title">{{item.courseName}}</view>
+          <view slot="detail">课程详情</view>
+        </w-card>
+      </block>
+    </view>
+    <view slot="1" class="page-container">
+      <w-empty wx:if="{{booked.length === 0}}">您还没有预约过课程</w-empty>
+      <block wx:for="{{booked}}" wx:key="index">
+        <w-card icon="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583259097737&di=3d9fc319882579147c4fcf2f126bc811&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp90995552.jpg">
+          <view slot="title">{{item.courseName}}</view>
+          <view slot="detail">课程详情</view>
+        </w-card>
+      </block>
+    </view>
   </w-tab-view>
 </view>

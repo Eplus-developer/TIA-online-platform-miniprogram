@@ -34,12 +34,12 @@
       </view>
       <view class='form-item'>
         <view class='item-title'>简介:</view>
-        <textarea disabled='true'>{{match.description}}</textarea>
+        <textarea disabled="true">{{match.description}}</textarea>
       </view>
     </view>
     <view class='in-btn' catchtap='changeFocus'>{{match.followed ? '取消收藏' : '感兴趣'}}</view>
   </view>
   <view class='big-tia-btn' catchtap='createRecruit'>
-    发布招聘
+    {{isCourse ? '发布课程' : '发布招聘'}}
   </view>
 </view>

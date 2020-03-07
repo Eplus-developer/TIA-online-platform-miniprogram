@@ -1,0 +1,42 @@
+<!--miniprogram/pages/courseDetail/courseDetail.wxml-->
+<view class='page'>
+  <image src='/image/tip.png' class='tip'></image>
+  <view class='match-detail'>
+    <view class='detail-top'>
+      <view>
+        <image src='https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m1.jpg' class='detail-img'></image>
+      </view>
+      <view class='top-text'>
+        <view class='match-title'>{{course.courseName}}</view>
+        <view class='match-place'>{{course.courseName}}</view>
+      </view>
+    </view>
+    <view class='detail-text'>
+      <!-- <view class='detail-title'>比赛时间:</view>
+      <view class='detail-content'>{{match.activityTime}}</view>
+      <view class='detail-title'>报名截止时间:</view>
+      <view class='detail-content'>{{match.activitySignUpDeadline}}</view>
+      <view class='detail-title'>简介:
+      </view>
+      <textarea class='summary' disabled='true'>{{match.activityDescription}}
+      </textarea> -->
+<!--      <view class='form-item'>-->
+<!--        <view class='item-title'>比赛时间:</view>-->
+<!--        <view class='item-detail'>{{match.actTime}}</view>-->
+<!--      </view>-->
+<!--      <view class='form-item'>-->
+<!--        <view class='item-title'>报名截止时间:</view>-->
+<!--        <view class='item-detail'>{{match.endTime}}</view>-->
+<!--      </view>-->
+<!--      <view class='form-item'>-->
+<!--        <view class='item-title'>简介:</view>-->
+<!--        <textarea disabled="true">{{match.description}}</textarea>-->
+<!--      </view>-->
+    </view>
+<!--    <view class='in-btn' catchtap='changeFocus'>{{match.followed ? '取消收藏' : '感兴趣'}}</view>-->
+  </view>
+  <view class='big-tia-btn' catchtap='apply'>
+    报名
+  </view>
+</view>
+

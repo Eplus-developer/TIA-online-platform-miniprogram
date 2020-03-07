@@ -24,10 +24,13 @@
     "pages/matchHistoryDetail/matchHistoryDetail",
     "pages/matchCutoffDetail/matchCutoffDetail",
     "pages/createTeam/createTeam",
-    "pages/createCourse/createCourse",
+    "pages/createCourseActivity/createCourseActivity",
     "pages/createMatch/createMatch",
     "pages/appliers/appliers",
-    "pages/myCourse/myCourse"
+    "pages/myCourse/myCourse",
+    "pages/courseDetail/courseDetail",
+    "pages/createCourse/createCourse",
+    "pages/subscribers/subscribers"
   ],
   "window": {
     "backgroundTextStyle": "light",

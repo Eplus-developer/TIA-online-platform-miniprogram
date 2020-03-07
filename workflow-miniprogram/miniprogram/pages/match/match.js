@@ -25,7 +25,7 @@ Page({
       'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m2.jpg',
       'https://workflow-1258575893.cos.ap-shanghai.myqcloud.com/m3.jpg'
     ],
-    tabs: ['近 期 比 赛', '已 截 止', '比 赛 年 鉴'],
+    tabs: ['近 期 比 赛', '已 截 止', '课 程 列 表'],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -55,23 +55,8 @@ Page({
         time: '2019年4月28日'
       }
     ],
-    matchList: [
-      {
-        id: 1,
-        name: '双创比赛',
-        time: '12月'
-      },
-      {
-        id: 2,
-        name: '大夏杯',
-        time: '5月2日'
-      },
-      {
-        id: 3,
-        name: '创青春',
-        time: '9月'
-      }
-    ]
+    matchList: [],
+    courses: []
   },
 
   /**
@@ -192,31 +177,50 @@ Page({
     wx.setStorageSync('matchId', e.currentTarget.id)
   },
 
-  async refreshMatch() {
-    let res = await util.request('/activity/all?type=fresh', 'GET')
-    for (let item of res) {
-      item.activitySignUpDeadline = util.formatTime(
-        new Date(item.activitySignUpDeadline)
-      )
-      item.activityTime = util.formatTime(new Date(item.activityTime))
-    }
-    console.log(res)
-    this.setData({
-      matches: res,
-      hasMatch: res.length === 0 ? 0 : 1
+  courseDetail(e) {
+    wx.navigateTo({
+      url: `/pages/courseDetail/courseDetail?courseId=${e.currentTarget.dataset.courseId}`
     })
+  },
 
-    res = await util.request('/activity/all?type=finish', 'GET')
-    for (let item of res) {
-      item.activitySignUpDeadline = util.formatTime(
-        new Date(item.activitySignUpDeadline)
-      )
-      item.activityTime = util.formatTime(new Date(item.activityTime))
+  async refreshMatch() {
+    try {
+      let res = await util.request('/activity/all?type=fresh', 'GET')
+      for (let item of res) {
+        item.activitySignUpDeadline = util.formatTime(
+          new Date(item.activitySignUpDeadline)
+        )
+        item.activityTime = util.formatTime(new Date(item.activityTime))
+      }
+      console.log(res)
+      this.setData({
+        matches: res,
+        hasMatch: res.length === 0 ? 0 : 1
+      })
+
+      res = await util.request('/activity/all?type=finish', 'GET')
+      for (let item of res) {
+        item.activitySignUpDeadline = util.formatTime(
+          new Date(item.activitySignUpDeadline)
+        )
+        item.activityTime = util.formatTime(new Date(item.activityTime))
+      }
+      this.setData({
+        cutoffMatches: res,
+        hasCutoffMatch: res.length === 0 ? 0 : 1
+      })
+      console.log(res)
+      let courses = await util.request('/course/all', 'GET')
+      console.log(courses)
+      this.setData({
+        courses: courses
+      })
+    } catch (e) {
+      wx.showModal({
+        title: '获取失败',
+        showCancel: false
+      })
+      console.log(e)
     }
-    this.setData({
-      cutoffMatches: res,
-      hasCutoffMatch: res.length === 0 ? 0 : 1
-    })
-    console.log(res)
   }
 })

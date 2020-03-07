@@ -15,7 +15,8 @@ Page({
       summary:
         '这是一个比较长的简介这是一个比较长的简介这是一个比较长的简介这是一个比较长的简介这是一个比较长的简介这是一个比较长的简介',
       followed: false
-    }
+    },
+    isCourse: false
   },
 
   /**
@@ -23,7 +24,8 @@ Page({
    */
   onLoad: async function(options) {
     this.setData({
-      id: options.id
+      id: options.id,
+      isCourse: !!options.course
     })
     this.refresh()
   },
@@ -81,18 +83,31 @@ Page({
     this.refresh()
   },
 
-  createRecruit: function(e) {
-    // 判断是否已经有团队
-    wx.request({
-      url: getApp().globalData.baseURL + '/team/joinedTeam',
-      method: 'get',
-      header: {
-        ...getApp().globalData.globalHeaders,
-        'content-type': 'application/json',
-        openid: wx.getStorageSync('openid')
-      },
-      success: function(res) {
-        if (res.data.data.length == 0) {
+  createRecruit: async function() {
+    if (this.data.isCourse) {
+      // try {
+      //   let res = await util.request(`/activity/${this.data.id}/enroll`, 'PUT')
+      //   console.log(res)
+      //   wx.showToast({
+      //     title: '报名成功',
+      //     icon: 'success'
+      //   })
+      //   wx.navigateBack()
+      // } catch (e) {
+      //   wx.showModal({
+      //     title: '报名失败',
+      //     showCancel: false
+      //   })
+      //   console.log(e)
+      // }
+      wx.navigateTo({
+        url: `/pages/createCourse/createCourse?activityId=${this.data.id}`
+      })
+    } else {
+      try {
+        // 判断是否已经有团队
+        let teams = await util.request('/team/joinedTeam', 'GET')
+        if (teams.length === 0) {
           wx.navigateTo({
             url: '/pages/createTeam/createTeam'
           })
@@ -101,11 +116,14 @@ Page({
             url: '/pages/createRecruit/createRecruit'
           })
         }
-      },
-      fail: function(res) {
-        console.log('fail')
+      } catch (e) {
+        wx.showModal({
+          title: '创建失败',
+          showCancel: false
+        })
+        console.log(e)
       }
-    })
+    }
   },
 
   async refresh() {

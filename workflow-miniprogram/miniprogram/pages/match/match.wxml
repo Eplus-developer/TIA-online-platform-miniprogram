@@ -1,9 +1,9 @@
-<view class='page'>
+<view class="page">
   <view class="page-swiper">
     <swiper indicator-dots="true" autoplay="true" circular="true">
       <block wx:for="{{imgUrls}}" wx:key="*this">
         <swiper-item>
-          <navigator url='/pages/matchDetail/matchDetail' class="slide-image">
+          <navigator url="/pages/matchDetail/matchDetail" class="slide-image">
             <image src="{{item}}" class="slide-image" />
           </navigator>
         </swiper-item>
@@ -25,25 +25,25 @@
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
         <w-empty wx:if="{{hasMatch === 0}}">近期没有比赛哦</w-empty>
 
-        <view class='page' hidden="{{hasMatch == 0}}">
+        <view class="page" hidden="{{hasMatch == 0}}">
           <block wx:for="{{matches}}" wx:key="id">
-            <navigator url='/pages/matchDetail/matchDetail?id={{item.id}}' class='match-item' bindtap="matchClick" id="{{item.id}}">
-              <view class='match-img-out'>
-                <image class='match-img' src='{{item.activityUrl}}'></image>
+            <navigator url="/pages/matchDetail/matchDetail?id={{item.id}}&{{item.activityType === 'course' ? 'course' : ''}}" class="match-item" bindtap="matchClick" id="{{item.id}}">
+              <view class="match-img-out">
+                <image mode="aspectFit" class="match-img" src="{{item.image}}"></image>
               </view>
-              <view class='text-title'>
+              <view class="text-title">
                 {{item.name}}
               </view>
-              <view class='match-text'>
-                <image class='match-mini-img' src='/image/match.png'></image>
-                <view class='text-level'>
+              <view class="match-text">
+                <image class="match-mini-img" src="/image/match.png"></image>
+                <view class="text-level">
                   {{item.level}}
                 </view>
               </view>
-              <view class='text-time'>
+              <view class="text-time">
                 {{item.endTime}}截止
               </view>
-              <view class='random' hidden='{{item.activityId % 4 != 2 || item.activityId % 4 != 3}}'></view>
+              <view class="random" hidden="{{item.activityId % 4 != 2 || item.activityId % 4 != 3}}"></view>
             </navigator>
           </block>
         </view>
@@ -55,25 +55,25 @@
           没有已截止的比赛哦
         </w-empty>
 
-        <view class='page' hidden="{{hasCutoffMatch === 0}}">
+        <view class="page" hidden="{{hasCutoffMatch === 0}}">
           <block wx:for="{{cutoffMatches}}" wx:key="id">
-            <navigator url='/pages/matchCutoffDetail/matchCutoffDetail' class='match-item' bindtap="matchClick" id="{{item.activityId}}">
-              <view class='match-img-out'>
-                <image class='match-img' src='{{item.activityUrl}}'></image>
+            <navigator url="/pages/matchCutoffDetail/matchCutoffDetail" class="match-item" bindtap="matchClick" id="{{item.activityId}}">
+              <view class="match-img-out">
+                <image class="match-img" src="{{item.image}}"></image>
               </view>
-              <view class='text-title'>
+              <view class="text-title">
                 {{item.activityName}}
               </view>
-              <view class='match-text'>
-                <image class='match-mini-img' src='/image/match.png'></image>
-                <view class='text-level'>
+              <view class="match-text">
+                <image class="match-mini-img" src="/image/match.png"></image>
+                <view class="text-level">
                   校级
                 </view>
               </view>
-              <view class='text-time'>
-                {{item.activityTime}}截止
+              <view class="text-time">
+                {{item.endTime}}截止
               </view>
-              <view class='random' hidden='{{item.activityId % 4 != 2 || item.activityId % 4 != 3}}'></view>
+              <view class="random" hidden="{{item.activityId % 4 != 2 || item.activityId % 4 != 3}}"></view>
             </navigator>
           </block>
         </view>
@@ -81,19 +81,28 @@
 
       <!-- tab3 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-        <view class="cal">
-          <calendar cell-size="30" next="{{false}}" prev="{{false}}" show-more-days="{{false}}" calendar-style="cal-calendar" header-style="cal-header" board-style="cal-board" days-color="{{cal_style}}" />
+<!--        <view class="cal">-->
+<!--          <calendar cell-size="30" next="{{false}}" prev="{{false}}" show-more-days="{{false}}" calendar-style="cal-calendar" header-style="cal-header" board-style="cal-board" days-color="{{cal_style}}" />-->
+<!--        </view>-->
+<!--        <block wx:for="{{matchList}}" wx:key="id">-->
+<!--          <view class="act-line">-->
+<!--            <view class="act-img"></view>-->
+<!--            <view class="act-text">{{item.time}}:{{item.name}}</view>-->
+<!--          </view>-->
+<!--        </block>-->
+        <w-empty wx:if="{{courses.length === 0}}">还没有课程哦</w-empty>
+        <view class="page-container">
+          <block wx:for="{{courses}}" wx:key="index">
+            <w-card bindtap="courseDetail" data-course-id="{{item.id}}" icon="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583259097737&di=3d9fc319882579147c4fcf2f126bc811&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp90995552.jpg">
+              <view slot="title">{{item.name}}</view>
+              <view slot="detail">课程详情</view>
+            </w-card>
+          </block>
         </view>
-        <block wx:for="{{matchList}}" wx:key="id">
-          <view class='act-line'>
-            <view class='act-img'></view>
-            <view class='act-text'>{{item.time}}:{{item.name}}</view>
-          </view>
-        </block>
       </view>
     </view>
   </view>
-  <navigator class='tia-btn' url='/pages/createMatch/createMatch'>
+  <navigator class="tia-btn" url="/pages/createMatch/createMatch">
     创建比赛
   </navigator>
 </view>

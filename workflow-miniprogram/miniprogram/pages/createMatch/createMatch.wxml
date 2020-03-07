@@ -39,6 +39,10 @@
           </view>
         </picker>
       </view>
+      <view class="form-item">
+        <view class="item-title">比赛头像：</view>
+        <view class="select" bindtap="selectImage">{{!photo ? '点击选择' : '已选择'}}</view>
+      </view>
       <view class='form-item'>
         <view class='item-title'>简介:</view>
         <textarea name="description" placeholder="这边填写简介"></textarea>

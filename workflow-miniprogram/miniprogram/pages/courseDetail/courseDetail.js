@@ -1,4 +1,4 @@
-// miniprogram/pages/createCourse/createCourse.js
+// miniprogram/pages/courseDetail/courseDetail.js
 import util from '../../utils/util'
 
 Page({
@@ -7,8 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activities: [],
-    activityIndex: 0,
+    course: null
   },
 
   /**
@@ -16,24 +15,14 @@ Page({
    */
   onLoad: async function (options) {
     try {
-      let activities = await util.request('/activity/all?type=fresh', 'GET')
-      activities = activities.filter(e => e.activityType === 'course')
-      console.log(activities)
+      let course = await util.request(`/course/${options.courseId}`)
+      console.log(course)
       this.setData({
-        activities: activities
+        course: course
       })
-      if (options.activityId) {
-        activities.forEach((e, index) => {
-          if (e.id === parseInt(options.activityId)) {
-            this.setData({
-              activityIndex: index
-            })
-          }
-        })
-      }
     } catch (e) {
       wx.showModal({
-        title: '活动获取失败',
+        title: '课程获取失败',
         showCancel: false
       })
       console.log(e)
@@ -89,31 +78,14 @@ Page({
 
   },
 
-  activityChange(e) {
-    this.setData({
-      activityIndex: e.detail.value
-    })
-  },
-
-  async submit(e) {
+  async apply() {
     try {
-      let res = await util.request(
-        `/course/${this.data.activities[this.data.activityIndex].id}`,
-        'POST',
-        {
-          name: e.detail.value.courseName,
-          id: '1'
-        }
-      )
+      let res = await util.request(`/course/${this.data.course.id}/enroll`, 'PUT')
       console.log(res)
-      wx.showToast({
-        title: '创建成功',
-        icon: 'success'
-      })
       wx.navigateBack()
     } catch (e) {
       wx.showModal({
-        title: '创建课程失败',
+        title: '报名失败',
         showCancel: false
       })
       console.log(e)

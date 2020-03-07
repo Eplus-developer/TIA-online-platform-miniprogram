@@ -1,4 +1,7 @@
 import 'weapp-cookie'
+import util from 'utils/util'
+
+const app = getApp()
 
 //app.js
 
@@ -6,37 +9,22 @@ App({
   onLaunch: function() {
     // 登录
     wx.login({
-      success: res => {
+      success: async res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         //获取凭证
-        var code = res.code
-        if (code) {
-          console.log('获取用户登录凭证：' + code)
-
-          wx.request({
-            url: getApp().globalData.baseURL + '/wxLogin',
-            data: {
-              code: code
-            },
-            method: 'GET',
-            header: {
-              ...getApp().globalData.globalHeaders,
-              'content-type': 'application/json'
-            },
-            success: function(res) {
-              if (res.statusCode === 200) {
-                console.log('get openid success!')
-                wx.setStorageSync('openid', res.data.data)
-              } else {
-                console.log('get openid fail!')
-              }
-            },
-            fail: function(res) {
-              console.log('fail!')
-            }
-          })
-        } else {
-          console.log('fail! ' + res.errMsg)
+        if (res.code) {
+          try {
+            let t = await util.request('/wxLogin', 'GET', {
+              code: res.code
+            })
+            wx.setStorageSync('openid', t)
+          } catch (e) {
+            wx.showModal({
+              title: '登录失败',
+              showCancel: false
+            })
+            console.log(e)
+          }
         }
       }
     })

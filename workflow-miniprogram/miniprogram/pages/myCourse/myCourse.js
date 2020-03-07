@@ -1,16 +1,40 @@
 // miniprogram/pages/myCourse/myCourse.js
 import util from '../../utils/util'
+const app = getApp()
 
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    created: [],
+    booked: []
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {},
+  onLoad: async function(options) {
+    try {
+      let userId = await util.request('/user/myself', 'GET')
+      let created = await util.request(`/user/${userId}/createdCourse`)
+      let booked = await util.request(`/course/joinedCourse`, 'GET', {
+        userId: userId
+      })
+      console.log(created)
+      console.log(booked)
+      this.setData({
+        created: created,
+        booked: booked
+      })
+    } catch (e) {
+      wx.showModal({
+        title: '课程获取出错',
+        showCancel: false
+      })
+      console.log(e)
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -45,5 +69,11 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {}
+  onShareAppMessage: function() {},
+
+  toAppliers(e) {
+    wx.navigateTo({
+      url: `/pages/subscribers/subscribers?courseId=${e.currentTarget.dataset.courseId}`
+    })
+  }
 })

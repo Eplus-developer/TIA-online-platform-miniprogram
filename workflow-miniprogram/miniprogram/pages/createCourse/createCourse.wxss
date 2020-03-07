@@ -70,4 +70,15 @@ textarea {
   text-align: center;
 }
 
+.select {
+  font-size: 36rpx;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.last {
+  flex-direction: row !important;
+}
+
 /*# sourceMappingURL=createCourse.wxss.map */

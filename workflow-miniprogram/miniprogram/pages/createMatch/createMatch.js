@@ -1,5 +1,8 @@
 // miniprogram/pages/createMatch/createMatch.js
 import util from '../../utils/util'
+import md5 from 'md5'
+const app = getApp()
+
 Page({
   /**
    * 页面的初始数据
@@ -9,7 +12,8 @@ Page({
     actTime: '2020-02-22',
     endTime: '2020-02-22',
     type: 0,
-    quantityType: ['单人参加', '多人参加']
+    quantityType: ['单人参加', '多人参加'],
+    photo: null
   },
 
   startTimeChange(e) {
@@ -38,30 +42,54 @@ Page({
       })
       return
     }
-    try {
-      await util.request('/activity', 'POST', {
-        name: e.detail.value.name,
-        description: e.detail.value.description,
-        activityType: 'competition',
-        actTime: this.data.actTime + ' 00:00',
-        endTime: this.data.endTime + ' 00:00',
-        phone: e.detail.value.phone,
-        quantityType: this.data.type === 1,
-        location: e.detail.value.location
-      })
-      wx.showToast({
-        title: '创建成功',
-        icon: 'success'
-      })
-      wx.switchTab({
-        url: '/pages/match/match'
-      })
-    } catch (e) {
-      wx.showModal({
-        title: '创建失败',
-        showCancel: false
-      })
-    }
+    let p = this.data.photo.split('.')
+    p = p[p.length - 1]
+    util.cos.postObject(
+      {
+        Bucket: 'tia-1258575893',
+        Region: 'ap-shanghai',
+        Key:
+          md5(new Date().toISOString() + wx.getStorageSync('openid')) + '.' + p,
+        FilePath: this.data.photo, // wx.chooseImage 选择文件得到的 tmpFilePath
+        onProgress: function(info) {
+          console.log(JSON.stringify(info))
+        }
+      },
+      async (err, data) => {
+        if (err) {
+          wx.showModal({
+            title: '上传失败',
+            showCancel: false
+          })
+          return
+        }
+        try {
+          await util.request('/activity', 'POST', {
+            name: e.detail.value.name,
+            description: e.detail.value.description,
+            activityType: 'competition',
+            actTime: this.data.actTime + ' 00:00',
+            endTime: this.data.endTime + ' 00:00',
+            phone: e.detail.value.phone,
+            quantityType: this.data.type === 1,
+            location: e.detail.value.location,
+            image: 'https://' + data.Location
+          })
+          wx.showToast({
+            title: '创建成功',
+            icon: 'success'
+          })
+          wx.switchTab({
+            url: '/pages/match/match'
+          })
+        } catch (e) {
+          wx.showModal({
+            title: '创建失败',
+            showCancel: false
+          })
+        }
+      }
+    )
   },
 
   /**
@@ -102,5 +130,15 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {}
+  onShareAppMessage: function() {},
+
+  async selectImage() {
+    wx.chooseImage({
+      success: res => {
+        this.setData({
+          photo: res.tempFilePaths[0]
+        })
+      }
+    })
+  }
 })

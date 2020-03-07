@@ -1,4 +1,6 @@
-const formatTime = date => {
+import COS from 'cos-wx-sdk-v5'
+
+export const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -9,7 +11,7 @@ const formatTime = date => {
   return year + '年' + month + '月' + day + '日'
 }
 
-const formatDateTime = date => {
+export const formatDateTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -24,12 +26,12 @@ const formatDateTime = date => {
   )
 }
 
-const formatNumber = n => {
+export const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
 
-const request = (url, method, data, headers = {}) => {
+export const request = (url, method, data, headers = {}) => {
   return new Promise((resolve, reject) => {
     wx.request({
       url: getApp().globalData.baseURL + url,
@@ -62,11 +64,22 @@ export const checkStuId = e => {
   return /\d{11}/.test(e)
 }
 
+export const cos = new COS({
+  SecretId: `AKIDNXQ7ZkWbGgphISq4XVFjyxqVt3zh6IE3`,
+  SecretKey: 'ziFSP4TdhW4NVNxGH9k4A3j9I9wUmr0t'
+})
+
+/*
+ bucket: tia-1258575893
+ region: ap-shanghai
+ */
+
 module.exports = {
   formatTime: formatTime,
   formatDateTime: formatDateTime,
   request: request,
   checkPhone: checkPhone,
   checkEmail: checkEmail,
-  checkStuId: checkStuId
+  checkStuId: checkStuId,
+  cos: cos
 }
