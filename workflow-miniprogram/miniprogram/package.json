@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cos-wx-sdk-v5": "^0.7.9",
+    "cos-wx-sdk-v5": "^1.4.3",
     "md5": "^2.2.1",
     "weapp-cookie": "^1.4.6"
   },
